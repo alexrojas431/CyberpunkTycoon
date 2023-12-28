@@ -1,10 +1,22 @@
 import './App.css';
-import { StartScreen } from './Screen/StartScreen';
+import { $stage } from './GameState/startState';
+import { StartScreen } from './Screen/StartScreen/StartScreen';
+import { useAtomValue } from 'jotai';
 
-function App() {
+/**
+ * This should switch between multiple different visual scenes
+ *  the game.
+ * EX: Start screen -> intro -> main game -> game over screen 
+ *  -> end screen(replay or shut game off)
+ */
+
+export function App() {
+  
+  const stage = useAtomValue($stage)
+
   return (
     <div className="App">
-      {stage === "startScreen" ? <StartScreen/>}
+      {stage === "startScreen" && <StartScreen />}
     </div>
   );
 }
