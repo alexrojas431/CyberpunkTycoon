@@ -40,32 +40,9 @@ Overall Goal:
   and generate spreadsheets to see if values are balanced
 */
 
-import {useState} from 'react';
-
-/*const room = {
- upgradeLevel: 1,
- cost: 100,
- baseIncome: 10,
- customerPresent: false,
- numOfEmployees: 0,
- baseMaintanceModifier: 100,
- baseTimeTaskCompletion: 2, //seconds
- taskComplete: false,
- getRoomMaintance: function() {
-    return this.baseMaintanceModifier * this.cost;
- },
- getTaskCompletionTime: function() {
-    return this.baseTimeTaskCompletion - (this.baseTimeTaskCompletion*.25 * (this.numOfEmployees - 1));
- },
- getRoomIncome: function(baseIncome:number) {
-    return baseIncome * (this.baseIncome * this.upgradeLevel)
- }
-};*/
-
-import { useAtom, atom, PrimitiveAtom } from "jotai";
+import { useAtom } from "jotai";
 import { roomsListAtom, roomSelectors } from "./GameState/Room";
 import { Room } from './interface/Room';
-import { useEffect } from 'react';
 
 function MoneySystem() {
 
@@ -79,10 +56,6 @@ function MoneySystem() {
     function getTotalEmployeePlay(): number {
         return totalEmployees * baseEmployeePay;
     };*/
-
-    /*function add(x: number, y: number): number {
-        return x + y;
-    }*/
 
     const [roomsList, setRoomsList] = useAtom(roomsListAtom);
 
