@@ -1,6 +1,5 @@
 import { atom } from "jotai"
 import { GameState, PlayerInfo } from "./GameState"
-export type GameStage = "startScreen" | "mainGameplay"
 
 class State{
     

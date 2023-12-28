@@ -7,7 +7,7 @@ export const $state = atom<{
 }>({
   ready: false,
   game: {
-    stage: "startScreen",
+    stage: "mainGameplay",
     player: [],
   },
 })
