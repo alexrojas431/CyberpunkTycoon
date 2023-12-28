@@ -1,6 +1,7 @@
 import './App.css';
-import { $stage } from './GameState/startState';
+import { $stage } from './GameState/StartState';
 import { StartScreen } from './Screen/StartScreen/StartScreen';
+import { MainScreen } from './Screen/MainScreen/MainScreen';
 import { useAtomValue } from 'jotai';
 
 /**
@@ -17,6 +18,7 @@ export function App() {
   return (
     <div className="App">
       {stage === "startScreen" && <StartScreen />}
+      {stage === "mainGameplay" && <MainScreen />}
     </div>
   );
 }

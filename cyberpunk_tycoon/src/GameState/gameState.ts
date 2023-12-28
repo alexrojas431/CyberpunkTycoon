@@ -1,4 +1,4 @@
-export type GameStage = "startScreen" 
+export type GameStage = "startScreen" | "mainGameplay"
 
 export interface GameState {
   stage: GameStage

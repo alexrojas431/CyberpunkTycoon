@@ -1,5 +1,5 @@
 import { atom } from "jotai"
-import { GameState } from "./gameState"
+import { GameState } from "./GameState"
 
 export const $state = atom<{
   ready: boolean
