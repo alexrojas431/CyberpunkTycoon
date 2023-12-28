@@ -1,4 +1,3 @@
-import './App.css';
 import { $stage } from './GameState/StartState';
 import { StartScreen } from './Screen/StartScreen/StartScreen';
 import { MainScreen } from './Screen/MainScreen/MainScreen';
@@ -16,7 +15,7 @@ export function App() {
   const stage = useAtomValue($stage)
 
   return (
-    <div className="App">
+    <div>
       {stage === "startScreen" && <StartScreen />}
       {stage === "mainGameplay" && <MainScreen />}
     </div>
