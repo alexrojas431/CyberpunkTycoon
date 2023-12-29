@@ -2,6 +2,7 @@ import { $stage } from './GameState/StartState';
 import { StartScreen } from './Screen/StartScreen/StartScreen';
 import { MainScreen } from './Screen/MainScreen/MainScreen';
 import { useAtomValue } from 'jotai';
+import MoneySystem from './ProfitSystem';
 
 /**
  * This should switch between multiple different visual scenes
@@ -13,17 +14,14 @@ import { useAtomValue } from 'jotai';
 export function App() {
   
 const stage = useAtomValue($stage)
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import MoneySystem from './ProfitSystem';
 
   return (
     <div>
-      {stage === "startScreen" && <StartScreen />}
-      {stage === "mainGameplay" && <MainScreen />}
-    <div className="App">
-      {/*<MoneySystem/>*/}
+        {stage === "startScreen" && <StartScreen />}
+        {stage === "mainGameplay" && <MainScreen />}
+      <div>
+        {/*<MoneySystem/>*/}
+      </div>
     </div>
   );
 }
