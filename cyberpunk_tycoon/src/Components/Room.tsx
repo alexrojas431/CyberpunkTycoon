@@ -26,24 +26,3 @@ export function Room(p: Props){
         </Container>
     )
 }
-
-/*
-const drawRoom = useCallback((g: pixiGraphics) => {
-    g.clear();
-    g.beginFill(0x6600ff);
-    g.drawRect(rX, rY, rW, rH);
-    g.endFill();
-},[])
-export default PixiComponent("Room", {
-    create:({props}) => {
-        return new Container(Graphics(drawRoom));
-    },
-    applyProps: (instance, oldProps, newProps) => {
-        const {props, ...oldP} = oldProps;
-        const {props, ...newP} = newProps;
-        
-        applyDefaultProps(instance, oldP, newP);
-        
-    }
-})
-*/
