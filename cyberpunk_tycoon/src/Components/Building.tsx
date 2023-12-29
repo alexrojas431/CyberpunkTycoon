@@ -10,10 +10,13 @@ export function Building(){
     const bX = 0;
     const bY = 0;
     
-    const rW = 100;
-    const rH = 60;
+    const rWPadding = 0.025;
+    const rHPercent = 0.4;
 
-    const rX = bX + (bW * 0.05);
+    const rW = bW - (bW * rWPadding * 2);
+    //const rH = 50;
+    const rH = bH * rHPercent;
+    const rX = bX + (bW * rWPadding);
     const rY = (bY + bH) - rH;
     
     const drawBuilding = useCallback((g: pixiGraphics) => {
