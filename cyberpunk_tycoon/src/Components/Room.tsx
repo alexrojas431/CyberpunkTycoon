@@ -1,4 +1,4 @@
-import { Container, Graphics, PixiComponent, applyDefaultProps } from "@pixi/react";
+import { Container, Graphics } from "@pixi/react";
 import { useCallback } from "react";
 import { Graphics as pixiGraphics } from "pixi.js";
 
