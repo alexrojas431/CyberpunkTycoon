@@ -12,12 +12,18 @@ import { useAtomValue } from 'jotai';
 
 export function App() {
   
-  const stage = useAtomValue($stage)
+const stage = useAtomValue($stage)
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import MoneySystem from './ProfitSystem';
 
   return (
     <div>
       {stage === "startScreen" && <StartScreen />}
       {stage === "mainGameplay" && <MainScreen />}
+    <div className="App">
+      {/*<MoneySystem/>*/}
     </div>
   );
 }
