@@ -1,6 +1,7 @@
 import { Container, Graphics } from "@pixi/react";
 import { useCallback } from "react";
 import { Graphics as pixiGraphics } from "pixi.js";
+import { Room } from "./Room";
 
 export function Building(){
 
@@ -14,7 +15,7 @@ export function Building(){
     const rHPercent = 0.4;
 
     const rW = bW - (bW * rWPadding * 2);
-    //const rH = 50;
+
     const rH = bH * rHPercent;
     const rX = bX + (bW * rWPadding);
     const rY = (bY + bH) - rH;
@@ -26,24 +27,13 @@ export function Building(){
         g.endFill();
     },[])
 
-    const drawRoom = useCallback((g: pixiGraphics) => {
-        g.clear();
-        g.beginFill(0x6600ff);
-        g.drawRect(rX, rY, rW, rH);
-        g.endFill();
-    },[])
-
     return(
         <Container>
             <Container x={500} y={100} >
                 <Graphics 
                     draw={drawBuilding}
                 />
-                <Container>
-                    <Graphics 
-                        draw={drawRoom}
-                    />
-                </Container>
+                <Room rW={rW} rH={rH} rX={rX} rY={rY} />
             </Container>
         </Container>
     )
