@@ -1,0 +1,33 @@
+.topUI{
+    width: 35%;
+    height: 15%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+    /*background-color: blue ;
+}
+
+.topStick{
+    width: 100%;
+    height: 100%;
+    position: sticky;
+    border: cyan 1px;
+}
+
+.moneyCounter{
+    background-color: red;
+}
+
+.moneyRate{
+    background-color: green;
+}
+
+.satisf{
+    background-color: yellow;
+}
+
+.morale{
+    background-color: purple;
+}
+*/

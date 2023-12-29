@@ -1,0 +1,12 @@
+.bottomUI{
+    width: 35%;
+    height: 15%;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    background-color: purple;
+}
+
+.botStick{
+    position: sticky;
+}
