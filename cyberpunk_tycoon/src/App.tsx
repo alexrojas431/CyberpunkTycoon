@@ -1,7 +1,3 @@
-//import { $stage } from './GameState/StartState';
-import { StartScreen } from './Screen/StartScreen/StartScreen';
-import { MainScreen } from './Screen/MainScreen/MainScreen';
-import { useAtomValue } from 'jotai';
 import MoneySystem from './ProfitSystem';
 
 /**
@@ -17,9 +13,7 @@ export function App() {
 
   return (
     <div>
-      <div>
-        <MoneySystem/>
-      </div>
+      <MoneySystem/>
     </div>
   );
 }
