@@ -1,4 +1,4 @@
-import { $stage } from './GameState/StartState';
+//import { $stage } from './GameState/StartState';
 import { StartScreen } from './Screen/StartScreen/StartScreen';
 import { MainScreen } from './Screen/MainScreen/MainScreen';
 import { useAtomValue } from 'jotai';
@@ -13,14 +13,12 @@ import MoneySystem from './ProfitSystem';
 
 export function App() {
   
-const stage = useAtomValue($stage)
+//const stage = useAtomValue($stage)
 
   return (
     <div>
-        {stage === "startScreen" && <StartScreen />}
-        {stage === "mainGameplay" && <MainScreen />}
       <div>
-        {/*<MoneySystem/>*/}
+        <MoneySystem/>
       </div>
     </div>
   );
