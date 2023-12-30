@@ -11,10 +11,8 @@ import { Room as roomInterface } from '../interface/Room';
 
 export function Building(){
 
-
     const nextRoomXCoordinate = 0;
     const nextRoomYCoordinate = 0;
-
 
     const buildingWidth = 500;
     const buildingHeight = 600;
