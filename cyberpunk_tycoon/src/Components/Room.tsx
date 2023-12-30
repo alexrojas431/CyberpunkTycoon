@@ -19,7 +19,10 @@ export function Room(p: Props){
     },[])
 
     return(
-        <Container>
+        <Container
+        eventMode="static"
+        cursor="pointer"
+        >
                     <Graphics 
                         draw={drawRoom}
                     />
