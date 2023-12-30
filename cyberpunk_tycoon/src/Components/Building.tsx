@@ -11,6 +11,8 @@ import { Room as roomInterface } from '../interface/Room';
 
 export function Building(){
 
+    let id = 0
+
     const nextRoomXCoordinate = 0;
     const nextRoomYCoordinate = 0;
 
@@ -21,11 +23,11 @@ export function Building(){
     
     const roomWidthPaddingPercent = 0.025;
     const roomHeightPercent = 0.4;
-    const roomWidth = buildingWidth - (buildingWidth * roomWidthPaddingPercent * 2);
-    const roomHeight = buildingHeight * roomHeightPercent;
-    const roomXCoordinate = buildingXCoordinate + (buildingWidth * roomWidthPaddingPercent);
-    const roomYCoordinate = (buildingYCoordinate + buildingHeight) - roomHeight;
     const [roomGraphicShapeList, setGraphicShapeList] = useState<any>([]);
+    const [roomsList, setRoomsList] = useAtom(roomsListAtom);
+    const [topRoomExist, setIsTopRoomAdded] = useState<boolean>(false);
+    const [bottomRoomExist, setIsBottomRoomAdded] = useState<boolean>(false);
+
     
     const drawBuilding = useCallback((g: pixiGraphics) => {
         g.clear();
@@ -41,9 +43,34 @@ export function Building(){
     const makeRoomInBuilding = (e:any) => {
         console.log(e);
         console.log("Making a new room");
-        const roomGraphicShape = {x: roomXCoordinate, y: roomYCoordinate, w: roomWidth, h: roomHeight};
-        const newData = [...roomGraphicShapeList, roomGraphicShape];
-        setGraphicShapeList(newData);
+
+        let roomXCoordinate = buildingXCoordinate + (buildingWidth * roomWidthPaddingPercent);
+        const roomHeight = buildingHeight * roomHeightPercent;
+        let roomYCoordinate = (buildingYCoordinate + buildingHeight) - roomHeight;
+
+        if (topRoomExist == false && bottomRoomExist == true) {
+            let nextRoomYCoordinate = 0;
+            console.log("Adding Top Room!")
+            let buildingHeightPadding = ((buildingHeight - (roomHeight*2))/2)
+            console.log("Building hEIGHT pADDING: ", buildingHeightPadding)
+            console.log("Room Height: ", roomHeight)
+            nextRoomYCoordinate = roomYCoordinate - buildingHeightPadding - roomHeight; // 200 - 180 - 180
+            roomYCoordinate = nextRoomYCoordinate
+            console.log("Room Y: ", roomYCoordinate)
+            setIsTopRoomAdded(true)
+        } else if (bottomRoomExist == false) {
+            console.log("Adding Bottom Room!")
+            console.log("Y: ", roomYCoordinate)
+            setIsBottomRoomAdded(true)
+        }
+
+        if(topRoomExist == false || bottomRoomExist == false) {
+            console.log("Adding Room!")
+            const roomWidth = buildingWidth - (buildingWidth * roomWidthPaddingPercent * 2);
+            const roomGraphicShape = {x: roomXCoordinate, y: roomYCoordinate, w: roomWidth, h: roomHeight};
+            const newData = [...roomGraphicShapeList, roomGraphicShape];
+            setGraphicShapeList(newData);
+        }
     };
 
     const gButton = useCallback((g:pixiGraphics) => {
@@ -53,15 +80,13 @@ export function Building(){
         g.endFill();
     },[])
 
-    const [roomsList, setRoomsList] = useAtom(roomsListAtom);
-
     return(
         <Container>
             <Container x={500} y={100}>
                 <Graphics draw={drawBuilding}/>
                 {roomGraphicShapeList.map((roomGraphicShape:any, index: any)=> {
                     return (
-                        <Room rW={roomGraphicShape.w} rX={roomGraphicShape.x} rH={roomGraphicShape.h} rY={roomGraphicShape.y}/>
+                        <Room key={index} rW={roomGraphicShape.w} rX={roomGraphicShape.x} rH={roomGraphicShape.h} rY={roomGraphicShape.y}/>
                     );
                 })}
             </Container>
