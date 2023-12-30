@@ -31,6 +31,13 @@ export function Building(){
         g.drawRect(bX, bY, bW, bH);
         g.endFill();
     },[])
+
+    const makeButton = useCallback((g: pixiGraphics) => {
+        g.clear();
+        g.beginFill(0x8c3b0c);
+        g.drawRect(0, 200, 100, 100);
+        g.endFill();
+    },[])
 /*
     function renderRoom(this: typeof Room){
         <Room rW={rW} rH={rH} rX={rX} rY={rY} />
@@ -52,7 +59,7 @@ export function Building(){
         g.clear();
     },[])
 
-    const test = (e:any) => {
+    const makeRoomInBuilding = (e:any) => {
         console.log("Hello");
     };
     const [roomsList, setRoomsList] = useAtom(roomsListAtom);
@@ -72,17 +79,32 @@ export function Building(){
                     cursor="pointer" // Adds a hand on windows machine only
                     //onclick={test}
                     interactive={true}
-                    pointerdown={() => {console.log("HI")}}
-                    pointermove={() => {console.log("HI")}}
-                    mousedown={() => {console.log("HI")}}
-                    mousemove={() => {console.log("HI")}}
-                    mouseover={() => {console.log("HI")}}
-                    mouseout={() => {console.log("HI")}}
-                    onclick={() => {console.log("HI")}}
-                    hitArea={new PIXI.Rectangle(0,0, 100, 100)}
+                    //pointerdown={() => {console.log("HI")}}
+                    //pointermove={() => {console.log("HI")}}
+                    //mousedown={() => {console.log("HI")}}
+                    //mousemove={() => {console.log("HI")}}
+                    //mouseover={() => {console.log("HI")}}
+                    //mouseout={() => {console.log("HI")}}
+                    //onclick={() => {console.log("HI")}}
+                    //hitArea={new PIXI.Rectangle(0,0, 100, 100)}
                 />
                 <Room rW={rW} rX={rX}rH={rH}rY={rY}/>
             </Container>
+            <Graphics
+                    draw={makeButton}
+                    eventMode="static" //Makes it interactable
+                    cursor="pointer" // Adds a hand on windows machine only
+                    onclick={makeRoomInBuilding}
+                    //interactive={true}
+                    //pointerdown={() => {console.log("HI")}}
+                    //pointermove={() => {console.log("HI")}}
+                    //mousedown={() => {console.log("HI")}}
+                    //mousemove={() => {console.log("HI")}}
+                    //mouseover={() => {console.log("HI")}}
+                    //mouseout={() => {console.log("HI")}}
+                    //onclick={() => {console.log("HI")}}
+                    hitArea={new PIXI.Rectangle(0, 200, 100, 100)}
+                />
         </Container>
     )
 }
