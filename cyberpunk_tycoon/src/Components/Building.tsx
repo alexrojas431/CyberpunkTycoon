@@ -2,6 +2,7 @@ import { Container, Graphics,Text } from "@pixi/react";
 import { useCallback } from "react";
 import { Graphics as pixiGraphics } from "pixi.js";
 import { Room } from "./Room";
+import * as PIXI from "pixi.js";
 
 import { useAtom } from "jotai";
 import { roomsListAtom, roomSelectors } from "../GameState/Room";
@@ -26,7 +27,7 @@ export function Building(){
     
     const drawBuilding = useCallback((g: pixiGraphics) => {
         g.clear();
-        //g.beginFill(0xffffff);
+        g.beginFill(0xffffff);
         g.drawRect(bX, bY, bW, bH);
         g.endFill();
     },[])
@@ -51,9 +52,9 @@ export function Building(){
         g.clear();
     },[])
 
-function test(e:any){
-    console.log(e);
-}
+    const test = (e:any) => {
+        console.log("Hello");
+    };
     const [roomsList, setRoomsList] = useAtom(roomsListAtom);
 
     const addRoom = (newRoom: roomInterface) => {
@@ -67,10 +68,18 @@ function test(e:any){
             <Container x={500} y={100}>
                 <Graphics
                     draw={drawBuilding}
-                    eventMode="static"
-                    cursor="pointer"
-                    onclick={test}
-                    pointerdown={test}
+                    eventMode="static" //Makes it interactable
+                    cursor="pointer" // Adds a hand on windows machine only
+                    //onclick={test}
+                    interactive={true}
+                    pointerdown={() => {console.log("HI")}}
+                    pointermove={() => {console.log("HI")}}
+                    mousedown={() => {console.log("HI")}}
+                    mousemove={() => {console.log("HI")}}
+                    mouseover={() => {console.log("HI")}}
+                    mouseout={() => {console.log("HI")}}
+                    onclick={() => {console.log("HI")}}
+                    hitArea={new PIXI.Rectangle(0,0, 100, 100)}
                 />
                 <Room rW={rW} rX={rX}rH={rH}rY={rY}/>
             </Container>
