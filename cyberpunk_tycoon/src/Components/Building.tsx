@@ -67,7 +67,6 @@ function test(e:any){
             <Container x={500} y={100}>
                 <Graphics
                     draw={drawBuilding}
-                    hitArea={drawBuilding}
                     eventMode="static"
                     cursor="pointer"
                     onclick={test}
