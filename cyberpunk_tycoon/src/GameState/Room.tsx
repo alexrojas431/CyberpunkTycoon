@@ -3,6 +3,8 @@ import { Room } from './../interface/Room';
 
 export const roomsListAtom = atom<Room[]>([]);
 
+export const idCounterAtom = atom<number>(0);
+
 export const roomSelectors = {
   // Maintance cost for room. TODO Revisit and gradually increase with each room added
   getRoomMaintance: (id: number) => (state: Room) => state.baseMaintanceModifier,

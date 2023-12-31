@@ -78,7 +78,7 @@ function MoneySystem() {
         addRoom(newRoom);
         console.log("Hello")
       }, []);*/
-    
+ 
     return (
         <div>
             {roomsList.map((room, index) => {
@@ -87,8 +87,8 @@ function MoneySystem() {
                 const getRoomIncome = roomSelectors.getRoomIncome(index)(room, 1);
 
                 return (
-                    <div key={index}>
-                        <p>Room {index}</p>
+                    <div key={room.id}>
+                        <p>Room ID: {room.id}</p>
                         <p>Room Upgrade Level: {room.upgradeLevel}</p>
                         <p>Room Cost: {room.cost}</p>
                         <p>Room Base Income: {room.baseIncome}</p>
@@ -104,7 +104,9 @@ function MoneySystem() {
                     </div>
                 );
             })}
+            
             <button onClick={() => addRoom({
+                        id: 1,
                         upgradeLevel: 2,
                         cost: 150,
                         baseIncome: 15,
