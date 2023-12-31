@@ -4,7 +4,7 @@ import { Graphics as pixiGraphics } from "pixi.js";
 import { Room } from "./Room";
 import * as PIXI from "pixi.js";
 import { useAtom } from "jotai";
-import { idCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from "../GameState/Room";
+import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from "../GameState/Room";
 import { Room as roomInterface } from '../interface/Room';
 
 /**
@@ -33,7 +33,7 @@ export function Building(){
     // This useState holds information needed for Room component
     const [roomGraphicShapeList, setRoomGraphicShapeList] = useState<any>([]);
     const [roomList, setRoomList] = useAtom(roomListAtom);
-    const [idCounter, setIdCounter] = useAtom(idCounterAtom);
+    const [roomIDCounter, setRoomIDCounter] = useAtom(roomIDCounterAtom);
     const [topRoomExists, setTopRoomExists] = useState<boolean>(false);
     const [bottomRoomExists, setBottomRoomExists] = useState<boolean>(false);
 
@@ -52,7 +52,7 @@ export function Building(){
 
     function makeRoomInBuilding() {
         console.log("Making a new room");
-        console.log("IDCounter: " + idCounter);
+        console.log("IDCounter: " + roomIDCounter);
 
         let roomXCoordinate = buildingXCoordinate + (buildingWidth * roomWidthPaddingPercent);
         const roomHeight = buildingHeight * roomHeightPercent;
@@ -85,10 +85,10 @@ export function Building(){
             const newData = [...roomGraphicShapeList, roomGraphicShape];
             setRoomGraphicShapeList(newData);
             // Add room data to atom
-            setIdCounter(incrementId(idCounter));
-            console.log("IDCounter: " + idCounter);
+            setRoomIDCounter(incrementId(roomIDCounter));
+            console.log("IDCounter: " + roomIDCounter);
             addRoom({
-            id: idCounter,
+            id: roomIDCounter,
             upgradeLevel: 2,
             cost: 150,
             baseIncome: 15,
@@ -98,18 +98,6 @@ export function Building(){
             baseTimeTaskCompletion: 3,
             taskComplete: false,
             });
-        //console.log("room Id: " + roomList[idCounter].id);
-            /*
-            id: 1,
-            upgradeLevel: 2,
-            cost: 150,
-            baseIncome: 15,
-            customerPresent: false,
-            numOfEmployees: 1,
-            baseMaintanceModifier: 120,
-            baseTimeTaskCompletion: 3,
-            taskComplete: false,
-            */
         }
     };
 
