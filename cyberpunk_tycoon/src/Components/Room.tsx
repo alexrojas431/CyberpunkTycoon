@@ -20,10 +20,12 @@ export function Room(p: Props){
         g.endFill();
     },[])
 
-    console.log("Room ID from Room Component: " + p.data.id)
+    function test(){
+        console.log("Room ID from Room Component: " + p.data.id)
+    }
 
     return(
-        <Container eventMode="static" cursor="pointer">
+        <Container eventMode="static" cursor="pointer" onclick={test}>
             <Graphics draw={drawRoom}/>
         </Container>
     )

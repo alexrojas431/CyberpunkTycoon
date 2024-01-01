@@ -3,8 +3,8 @@ import { useCallback, useState } from "react";
 import { Graphics as pixiGraphics } from "pixi.js";
 import { Room } from "./Room";
 import * as PIXI from "pixi.js";
-import { useAtom } from "jotai";
-import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from "../GameState/Room";
+import { Atom, useAtom } from "jotai";
+import { roomIDCounterAtom, roomsListAtom as roomListAtom } from "../GameState/Room";
 import { Room as roomInterface } from '../interface/Room';
 
 /**
@@ -20,8 +20,14 @@ import { Room as roomInterface } from '../interface/Room';
  * 
  */
 
-export function Building(){
+interface Props{
+    readonly id: number;
+    readonly bX: number;
+    readonly bY: number;
+}
 
+export function Building(p: Props){
+console.log("-------------------\nBuilding ID from building comp: " + p.id);
     const buildingWidth = 500;
     const buildingHeight = 600;
     const buildingXCoordinate = 0;
@@ -30,8 +36,9 @@ export function Building(){
     const roomWidthPaddingPercent = 0.025;
     const roomHeightPercent = 0.4;
 
-    // This useState holds information needed for Room component
+    // This useState holds dimensions info needed for Room component visuals
     const [roomGraphicShapeList, setRoomGraphicShapeList] = useState<any>([]);
+    // This atom holds information needed for Room component
     const [roomList, setRoomList] = useAtom(roomListAtom);
     const [roomIDCounter, setRoomIDCounter] = useAtom(roomIDCounterAtom);
     const [topRoomExists, setTopRoomExists] = useState<boolean>(false);
@@ -51,8 +58,8 @@ export function Building(){
     };
 
     function makeRoomInBuilding() {
-        console.log("Making a new room");
-        console.log("IDCounter: " + roomIDCounter);
+        //console.log("Making a new room");
+        //console.log("roomIDCounter: " + roomIDCounter);
 
         let roomXCoordinate = buildingXCoordinate + (buildingWidth * roomWidthPaddingPercent);
         const roomHeight = buildingHeight * roomHeightPercent;
@@ -62,41 +69,42 @@ export function Building(){
         if (topRoomExists === false && bottomRoomExists === true) {
             //Building extends height but not width, x never changes
             let nextRoomYCoordinate = 0;
-            console.log("Adding Top Room!")
+            //console.log("Adding Top Room!")
             let buildingHeightPadding = ((buildingHeight - (roomHeight*2))/2)
-            console.log("Building hEIGHT pADDING: ", buildingHeightPadding)
-            console.log("Room Height: ", roomHeight)
+            //console.log("Building hEIGHT pADDING: ", buildingHeightPadding)
+            //console.log("Room Height: ", roomHeight)
             // 200 - 180 - 180
             nextRoomYCoordinate = roomYCoordinate - buildingHeightPadding - roomHeight;
             roomYCoordinate = nextRoomYCoordinate
-            console.log("Room Y: ", roomYCoordinate)
+            //console.log("Room Y: ", roomYCoordinate)
             setTopRoomExists(true)
         } else if (bottomRoomExists === false) {
-            console.log("Adding Bottom Room!")
-            console.log("Y: ", roomYCoordinate)
+            //console.log("Adding Bottom Room!")
+            //console.log("Y: ", roomYCoordinate)
             setBottomRoomExists(true)
         }
 
         // Add room dimensions to roomgraphicshapelist, and add room data to atom
         if(topRoomExists === false || bottomRoomExists === false) {
-            console.log("Adding Room!")
+            //console.log("Adding Room!")
             const roomWidth = buildingWidth - (buildingWidth * roomWidthPaddingPercent * 2);
             const roomGraphicShape = {x: roomXCoordinate, y: roomYCoordinate, w: roomWidth, h: roomHeight};
             const newData = [...roomGraphicShapeList, roomGraphicShape];
             setRoomGraphicShapeList(newData);
             // Add room data to atom
+            const id = roomIDCounter;
             setRoomIDCounter(incrementId(roomIDCounter));
-            console.log("IDCounter: " + roomIDCounter);
+            //console.log("roomIDCounter: " + roomIDCounter);
             addRoom({
-            id: roomIDCounter,
-            upgradeLevel: 2,
-            cost: 150,
-            baseIncome: 15,
-            customerPresent: false,
-            numOfEmployees: 1,
-            baseMaintanceModifier: 120,
-            baseTimeTaskCompletion: 3,
-            taskComplete: false,
+                id: id,
+                upgradeLevel: 2,
+                cost: 150,
+                baseIncome: 15,
+                customerPresent: false,
+                numOfEmployees: 1,
+                baseMaintanceModifier: 120,
+                baseTimeTaskCompletion: 3,
+                taskComplete: false,
             });
         }
     };
@@ -104,19 +112,21 @@ export function Building(){
     const gButton = useCallback((g:pixiGraphics) => {
         g.clear();
         g.beginFill(0x8c3b0c);
-        g.drawRect(0, 200, 100, 100);
+        g.drawRect(p.bX, p.bY, 100, 100);
         g.endFill();
     },[])
 
     return(
         <Container>
-            <Container x={500} y={100}>
+            <Container x={p.bX} y={p.bY}>
                 <Graphics draw={drawBuilding}/>
-                {roomGraphicShapeList.map((roomGraphicShape:any, index: any) => {
+                {roomGraphicShapeList.map((roomGraphicShape:any, i: number) => {
+                    //console.log("RoomIDCounter at map: " + roomIDCounter)
+                    //console.log("key at map: " + roomList[i].id)
                     return (
                         <Room
-                            key={roomList[index].id}
-                            data={roomList[index]}
+                            key={roomList[i].id}
+                            data={roomList[roomIDCounter-1]}
                             rW={roomGraphicShape.w}
                             rX={roomGraphicShape.x}
                             rH={roomGraphicShape.h}
@@ -124,13 +134,17 @@ export function Building(){
                         />
                     );
                 })}
+                {roomList.map((r:any, i: number) => {
+                    console.log("----------\nRoomIDCounter at map: " + roomIDCounter)
+                    console.log("roomlistID at map: " + r.id)
+                })}
             </Container>
             <Graphics
                 draw={gButton}
                 eventMode="static" //Makes it interactable
                 cursor="pointer" // Adds a hand on windows machine only
                 onclick={makeRoomInBuilding}
-                hitArea={new PIXI.Rectangle(0, 200, 100, 100)}
+                hitArea={new PIXI.Rectangle(p.bX, p.bY, 100, 100)}
             />
         </Container>
     )
