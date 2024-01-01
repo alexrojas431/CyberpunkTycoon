@@ -107,6 +107,8 @@ function MoneySystem() {
             
             <button onClick={() => addRoom({
                         id: 1,
+                        x: 1,
+                        y: 1,
                         upgradeLevel: 2,
                         cost: 150,
                         baseIncome: 15,

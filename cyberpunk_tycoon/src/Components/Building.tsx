@@ -97,6 +97,8 @@ console.log("-------------------\nBuilding ID from building comp: " + p.id);
             //console.log("roomIDCounter: " + roomIDCounter);
             addRoom({
                 id: id,
+                x: roomGraphicShape.x,
+                y: roomGraphicShape.y,
                 upgradeLevel: 2,
                 cost: 150,
                 baseIncome: 15,
