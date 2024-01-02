@@ -10,6 +10,7 @@ import { useAtom } from "jotai";
 import { buildingIDCounterAtom, buildingListAtom, buildingShapeListAtom } from "../../GameState/BuildingState";
 import { BuildingInterface } from "../../interface/BuildingInterface";
 import { roomIDCounterAtom } from "../../GameState/Room";
+import { People } from "../../Components/People";
 
 /**
  * MainScreen.tsx
@@ -96,6 +97,7 @@ export function MainScreen(){
                     onclick={makeBuilding}
                     hitArea={new PIXI.Rectangle(0, 600, 100, 100)}
                 />
+                <People/>
                 <Ground/>
             </Stage>
         </div>
