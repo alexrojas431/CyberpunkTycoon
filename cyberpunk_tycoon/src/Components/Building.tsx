@@ -1,4 +1,4 @@
-import { Container, Graphics } from "@pixi/react";
+import { Container, Graphics, useApp } from "@pixi/react";
 import { useCallback, useState } from "react";
 import { Graphics as pixiGraphics } from "pixi.js";
 import { Room } from "./Room";
@@ -57,6 +57,8 @@ console.log("-------------------\nBuilding ID from building comp: " + p.id);
         setRoomList((prevList: any) => [...prevList, newRoom]);
     };
 
+    const app = useApp();
+
     function makeRoomInBuilding() {
         //console.log("Making a new room");
         //console.log("roomIDCounter: " + roomIDCounter);
@@ -95,6 +97,8 @@ console.log("-------------------\nBuilding ID from building comp: " + p.id);
             const id = roomIDCounter;
             setRoomIDCounter(incrementId(roomIDCounter));
             //console.log("roomIDCounter: " + roomIDCounter);
+            //let globalPos = ref.current.toGlobal(new PIXI.Point(0,0));
+            //console.log("From Building Component while making a room:\n" + global.);
             addRoom({
                 id: id,
                 x: roomGraphicShape.x,

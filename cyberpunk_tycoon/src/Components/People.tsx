@@ -25,8 +25,8 @@ export function People(){
         let toX = x - sx;
         let toY = y - sy;
         let toLength;
-console.log("xcoord: " + x);
-console.log("toX: " + toX);
+        //console.log("xcoord: " + x);
+        //console.log("toX: " + toX);
         // Normalize
         toLength = Math.sqrt(toX * toX + toY * toY);
         toX = toX / toLength;
