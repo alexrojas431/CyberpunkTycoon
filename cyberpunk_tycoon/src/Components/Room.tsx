@@ -19,6 +19,7 @@ export function Room(props:Props){
     const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
     const second = 1000;
     const roomRevenueTimer = useRef(props.roomInfo.baseTimeTaskCompletion*second);
+    const roomRentTimer = useRef(15*second);
 
     const drawRoom = useCallback((g:pixiGraphics) => {
         g.clear();
@@ -28,20 +29,33 @@ export function Room(props:Props){
     },[]);
 
     useEffect(() => {
-        // TODO Weird issue where adding items to roomsList will reset the timer. 
-        // I believe this is due to the mapping in the render. 
-        // Note: Every Room component will have a independent timer running
-        const roomInterval = setInterval(() => {
-            if(props.roomInfo.numOfEmployees > 0) { // If an employee is in the room
+        const roomProfitInterval = setInterval(() => {
+            if(props.roomInfo.numOfEmployees > 0) { // If one or more employees are in the room
                 console.log("Adding Profit from Rooms!");
                 let roomProfit = 0;
                 roomProfit += roomSelectors.getRoomIncome(props.roomInfo.id)(props.roomInfo,1);
                 console.log("Adding " + roomProfit + " to Profit from Rooms!");
                 setTotalProfit(profit => profit + roomProfit);
             }
-        }, roomRevenueTimer.current); // Timer will depend on the room task completion time. Add a prop
+        }, roomRevenueTimer.current);
 
-        return () => clearInterval(roomInterval);
+        return () => {
+            clearInterval(roomProfitInterval);
+        }
+    }, []);
+
+    useEffect(() => {
+        const roomRentInterval = setInterval(() => {
+            console.log("Removing Profit for Room rent!");
+            let roomRent = 0;
+            roomRent += roomSelectors.getRoomMaintance(props.roomInfo.id)(props.roomInfo);
+            console.log("Removing " + roomRent + " from Profit because of room rent!");
+            setTotalProfit(profit => profit - roomRent);
+        }, roomRentTimer.current);
+
+        return () => {
+            clearInterval(roomRentInterval);
+        }
     }, []);
 
     function test(){
