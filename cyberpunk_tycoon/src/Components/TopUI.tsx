@@ -1,6 +1,6 @@
 import { Container, Graphics, Sprite, Stage, Text } from "@pixi/react";
 import "./TopUI.css";
-import image from "./topUILeftBox.png";
+import image from "../Assets/topUILeftBox.png";
 import { useCallback } from "react";
 import { Graphics as gg } from "pixi.js";
 

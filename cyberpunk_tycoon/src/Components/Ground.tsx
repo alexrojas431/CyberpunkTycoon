@@ -6,13 +6,13 @@ export function Ground(){
     const draw = useCallback((g: pixiGraphics) => {
         g.clear();
         g.beginFill(0x009933);
-        g.drawRect(0, 0, 5, 1);
+        g.drawRect(0, 0, window.innerWidth, 200);
         g.endFill();
     },[])
 
     return(
         <Container>
-            <Container x={10} y={600} >
+            <Container x={0} y={700} >
                 <Graphics 
                     draw={draw}
                 />
