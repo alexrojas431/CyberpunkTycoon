@@ -132,7 +132,7 @@ console.log("-------------------\nBuilding ID from building comp: " + p.id);
                     return (
                         <Room
                             key={roomList[i].id}
-                            data={roomList[roomIDCounter-1]}
+                            roomInfo={roomList[roomIDCounter-1]}
                             rW={roomGraphicShape.w}
                             rX={roomGraphicShape.x}
                             rH={roomGraphicShape.h}

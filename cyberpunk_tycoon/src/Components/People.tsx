@@ -43,10 +43,10 @@ export function People(){
     useTick(delta =>{
         if(roomList.length < 1 || roomList == undefined){
             setX(moveLeft(x));
-            console.log("From the People Component: " + "No Room");
+            //console.log("From the People Component: " + "No Room");
         }
         else if(roomList[1] !== undefined){
-            console.log("From the People Component: " + "Room 2 is available");
+            //console.log("From the People Component: " + "Room 2 is available");
             //setX(moveToRoom(x, roomList[1].x));
             const speed = 6;
             //setX((x + speed * delta + 400) % (window.innerWidth + 800) - 400);
@@ -54,7 +54,7 @@ export function People(){
         }
         else{
             setX(moveRight(x));
-            console.log("From the People Component: " + "Room's available");
+            //console.log("From the People Component: " + "Room's available");
         }
     });
 
