@@ -59,8 +59,6 @@ function MoneySystem() {
         return totalEmployees * baseEmployeePay;
     };*/
 
-    let lastId = 0;
-    let roomProfitAsyncOn = false;
     const second = 1000;
     const roomRevenueTimer = useRef(3*second);
     const [roomsList, setRoomsList] = useAtom(roomsListAtom);
@@ -81,7 +79,6 @@ function MoneySystem() {
             });
             console.log("Adding " + roomProfit + " to Profit from Rooms!");
             setTotalProfit(profit => profit + roomProfit);
-            roomProfitAsyncOn = false;
         }, roomRevenueTimer.current);
 
         return () => clearInterval(roomInterval);
