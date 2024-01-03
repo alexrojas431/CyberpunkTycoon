@@ -44,6 +44,7 @@ import { useAtom } from "jotai";
 import { useState, useEffect, useRef } from "react";
 import { roomsListAtom, roomSelectors } from "./GameState/Room";
 import { totalProfitAtom } from "./GameState/Economy";
+import { totalEmployees as totalEmployeesAtom } from "./GameState/Company";
 import { Room } from './interface/Room';
 
 function MoneySystem() {
@@ -61,10 +62,13 @@ function MoneySystem() {
 
     const second = 1000;
     const roomRevenueTimer = useRef(3*second);
+    const employeePayTimer = useRef(30*second); // Will make 30 seconds
     const [roomsList, setRoomsList] = useAtom(roomsListAtom);
+    const [totalEmployees, setTotalEmployees] = useAtom(totalEmployeesAtom);
 
     const addRoom = (newRoom: Room) => {
         setRoomsList((prevList: any) => [...prevList, newRoom]);
+        setTotalProfit(profit => profit - (newRoom.cost)*roomsList.length*.5);
     };
 
     useEffect(() => {
@@ -79,10 +83,21 @@ function MoneySystem() {
             });
             console.log("Adding " + roomProfit + " to Profit from Rooms!");
             setTotalProfit(profit => profit + roomProfit);
-        }, roomRevenueTimer.current);
+        }, roomRevenueTimer.current); // Timer will depend on the room task completion time. Add a prop
 
         return () => clearInterval(roomInterval);
     }, [roomsList]);
+
+    useEffect(() => {
+        const employeePayInterval = setInterval(() => {
+            console.log("Removing Profit for Employees!");
+            let employeePay = totalEmployees * 100;
+            console.log("Removing " + employeePay + " from Profit for employees!");
+            setTotalProfit(profit => profit - employeePay);
+        }, employeePayTimer.current);
+
+        return () => clearInterval(employeePayInterval);
+    }, [roomsList, totalEmployees]);
 
     return (
         <div>
@@ -123,9 +138,13 @@ function MoneySystem() {
                             baseTimeTaskCompletion: 3,
                             taskComplete: false,
                             })}>Add Room</button>
+                <button onClick={() => {setTotalEmployees(totalEmployees + 1)}}>Add Employee</button>
             </div>
             <div style={{display: 'flex',justifyContent: 'right'}}>
                 Total Profit: {totalProfit}
+            </div>
+            <div style={{display: 'flex',justifyContent: 'right'}}>
+                Total Employees: {totalEmployees}
             </div>
         </div>
     );

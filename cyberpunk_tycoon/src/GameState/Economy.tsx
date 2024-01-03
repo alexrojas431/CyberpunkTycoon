@@ -1,6 +1,6 @@
 import { atom } from "jotai";
 
-const totalProfitAtom = atom(3000);
+const totalProfitAtom = atom(1000);
 const baseEmployeePayAtom = atom(10);
 const baseIncomeAtom = atom(1);
 
