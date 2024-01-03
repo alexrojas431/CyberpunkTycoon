@@ -14,16 +14,11 @@ import { roomIDCounterAtom } from "../../GameState/Room";
 /**
  * MainScreen.tsx
  * 
- * Canvas that the player will be interacting with for the majority of theirplaytime
+ * Canvas that the player will be interacting with for the majority of their playtime
  * Houses most UI Elements/Components
  * Also handles dynamic making of the Building Component
  *  
- * 1 TODO - line 88
- * If Building is to be modular and able to be dynamically made then the
- *  x and y coords at line 88 need to be assigned by the parent component.
- * Which is currently MainScreen.tsx
- * 
- */
+*/
 
 export function MainScreen(){
 
