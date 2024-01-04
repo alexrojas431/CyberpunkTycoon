@@ -4,7 +4,7 @@ import { Graphics as pixiGraphics } from "pixi.js";
 import { Room as roomInterface } from "../interface/Room";
 
 interface Props{
-    readonly data: roomInterface;
+    readonly roomObject: roomInterface;
     readonly rW: number;
     readonly rH: number;
     readonly rX: number;
@@ -20,12 +20,12 @@ export function Room(p: Props){
         g.endFill();
     },[])
 
-    function test(){
-        console.log("Room ID from Room Component: " + p.data.id)
+    function giveRoomID(){
+        console.log("Room ID from Room Component: " + p.roomObject.id)
     }
 
     return(
-        <Container eventMode="static" cursor="pointer" onclick={test}>
+        <Container eventMode="static" cursor="pointer" onclick={giveRoomID}>
             <Graphics draw={drawRoom}/>
         </Container>
     )

@@ -3,9 +3,10 @@ import { useCallback, useState } from "react";
 import { Graphics as pixiGraphics } from "pixi.js";
 import { Room } from "./Room";
 import * as PIXI from "pixi.js";
-import { Atom, useAtom } from "jotai";
+import { useAtom } from "jotai";
 import { roomIDCounterAtom, roomsListAtom as roomListAtom } from "../GameState/Room";
 import { Room as roomInterface } from '../interface/Room';
+import { buildingListAtom } from "../GameState/BuildingState";
 
 /**
  * Building.tsx
@@ -23,8 +24,6 @@ interface Props{
 
 export function Building(p: Props){
 
-    console.log("-------------------\nBuilding ID from building comp: " + p.id);
-    
     const buildingWidth = 500;
     const buildingHeight = 600;
     const buildingXCoordinate = 0;
@@ -39,9 +38,14 @@ export function Building(p: Props){
     
     // This atom holds information needed for Room component
     const [roomList, setRoomList] = useAtom(roomListAtom);
+    const [buildingList, setBuildingList] = useAtom(buildingListAtom);
     const [roomIDCounter, setRoomIDCounter] = useAtom(roomIDCounterAtom);
     const [topRoomExists, setTopRoomExists] = useState<boolean>(false);
     const [bottomRoomExists, setBottomRoomExists] = useState<boolean>(false);
+
+    function giveBuildingID(){
+        console.log("Building ID from Building Component: " + p.id)
+    }
 
     const drawBuilding = useCallback((g: pixiGraphics) => {
         g.clear();
@@ -54,6 +58,22 @@ export function Building(p: Props){
 
     const addRoom = (newRoom: roomInterface) => {
         setRoomList((prevList: any) => [...prevList, newRoom]);
+    };
+
+    const updateBuildingRoomID = (buildingID: number, roomID: number) => {
+        let newBuildingList = buildingList.map(b =>{
+            if(b.id == buildingID){
+                if(b.bottomRoomID == -10){
+                    b = {...b, bottomRoomID: roomID};
+                }
+                else if(b.topRoomID == -10){
+                    b = {...b, topRoomID: roomID};
+                }
+            }
+            return b;
+        });
+ 
+        setBuildingList(newBuildingList);
     };
 
     function makeRoomInBuilding() {
@@ -77,7 +97,8 @@ export function Building(p: Props){
             // Add room data to atom
             const id = roomIDCounter;
             setRoomIDCounter(incrementId(roomIDCounter));
-            //console.log("roomIDCounter: " + roomIDCounter);
+            updateBuildingRoomID(p.id, id);
+            
             addRoom({
                 id: id,
                 x: roomXCoordinate,
@@ -100,18 +121,24 @@ export function Building(p: Props){
         g.drawRect(p.bX, p.bY, 100, 100);
         g.endFill();
     },[])
+   
+    const bottomID = buildingList[p.id].bottomRoomID;
 
     return(
         <Container>
-            <Container x={p.bX} y={p.bY}>
+            <Container x={p.bX} y={p.bY} eventMode="static" cursor="pointer" onclick={giveBuildingID} >
                 <Graphics draw={drawBuilding}/>
-                {roomList.map((r:any, i: number) => {
-                    console.log("----------\nRoomIDCounter at map: " + roomIDCounter)
-                    console.log("roomlistID at map: " + r.id)
+                {roomList.slice(bottomID, bottomID+2).map((r: roomInterface, i: number) => {
+                   /* console.log("----------\nRoomIDCounter at map: " + roomIDCounter)
+                    console.log("buildinglistID at map: " + p.id);
+                    console.log("roomlistID at map: " + r.id);
+                    console.log("index at map: " + i);
+                    console.log("bottomRoomID + index: "+ (buildingList[p.id].bottomRoomID+i));
+                    console.log("topRoomID + index: "+ (bottomID+i));*/
                     return (
                         <Room
-                            key={roomList[i].id}
-                            data={roomList[roomIDCounter-1]}
+                            key={roomList[(bottomID+i)].id}
+                            roomObject={roomList[(bottomID+i)]}
                             rW={roomWidth}
                             rX={r.x}
                             rH={roomHeight}

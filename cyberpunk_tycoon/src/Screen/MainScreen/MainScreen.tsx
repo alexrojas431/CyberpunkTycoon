@@ -1,4 +1,4 @@
-import { Stage, Sprite, Text, Container, Graphics } from "@pixi/react";
+import { Stage, Sprite, Graphics } from "@pixi/react";
 import { useCallback, useState } from "react";
 import * as PIXI from "pixi.js";
 import { BottomUI } from "../../Components/BottomUI";
@@ -7,9 +7,8 @@ import "./MainScreen.css";
 import { Building } from "../../Components/Building";
 import { Ground } from "../../Components/Ground";
 import { useAtom } from "jotai";
-import { buildingIDCounterAtom, buildingListAtom, buildingShapeListAtom } from "../../GameState/BuildingState";
+import { buildingIDCounterAtom, buildingListAtom } from "../../GameState/BuildingState";
 import { BuildingInterface } from "../../interface/BuildingInterface";
-import { roomIDCounterAtom } from "../../GameState/Room";
 
 /**
  * MainScreen.tsx
@@ -24,8 +23,8 @@ export function MainScreen(){
 
     //This atom holds dimensons info needed for Room component
     const [buildingList, setBuildingList] = useAtom(buildingListAtom);
-    const [buildingShapeList, setBuildingShapeList] = useAtom(buildingShapeListAtom);
     const [buildingIDCounter, setBuildingIDCounter] = useAtom(buildingIDCounterAtom);
+    const [floor, setFloor] = useState<number>(100);
 
     const bButton = useCallback((g: PIXI.Graphics) => {
         g.clear();
@@ -40,25 +39,35 @@ export function MainScreen(){
         setBuildingList((prevList: any) => [...prevList, newBuilding]);
     };
 
+    const startShape = {x: 1200, y: 100 };
+    const maxLimits = {x: 200, y: -10000 };
+    let buildingShape = startShape;
+    
     function makeBuilding() {
-        //console.log("Making a new building");
-        //console.log("buildingIDCounter: " + buildingIDCounter);
-
-        // Add room dimensions to roomgraphicshapelist, and add room data to atom
-        //console.log("Adding Building!")
-        const buildingShape = {x: 400, y: 100 };
-        const newDimensions = [...buildingShapeList, buildingShape];
-        setBuildingShapeList(newDimensions);
-        // Add room data to atom
         setBuildingIDCounter(incrementId(buildingIDCounter));
-       // console.log("buildingIDCounter: " + buildingIDCounter);
+        
+        if(buildingList.length != 0){
+            const i = buildingList.length - 1;
+
+            buildingShape.y = floor;
+            if(buildingList[i].x != maxLimits.x){
+                buildingShape.x = buildingList[i].x - 500;
+            }
+            else{
+                buildingShape.y = buildingList[i].y - 600;
+                setFloor(buildingShape.y);
+            }
+        }
+
         addBuildingData({
             id: buildingIDCounter,
+            bottomRoomID: -10,
+            topRoomID: -10,
             x: buildingShape.x,
             y: buildingShape.y,
         });
     };
-    
+
     return (
         <div>
             <TopUI/> 
@@ -73,14 +82,13 @@ export function MainScreen(){
                     y={270}
                     anchor={{ x: 0, y: 0 }}
                 />
-                <Building key={0} id={0} bX={900} bY={100}/>
-                {buildingShapeList.map((buildingGraphicShape:any, index: any) => {
+                {buildingList.map((b: BuildingInterface) => {
                     return (
                         <Building
-                            key={buildingList[index].id}
-                            id={buildingList[index].id}
-                            bX={buildingGraphicShape.x}
-                            bY={buildingGraphicShape.y}
+                            key={b.id}
+                            id={b.id}
+                            bX={b.x}
+                            bY={b.y}
                         />
                     );
                 })}
