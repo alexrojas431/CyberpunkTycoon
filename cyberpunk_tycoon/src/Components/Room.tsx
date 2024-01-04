@@ -7,11 +7,11 @@ import { useAtom } from "jotai";
 import { roomSelectors } from "./../GameState/Room";
 
 interface Props{
-    readonly roomInfo:roomInterface;
-    readonly rW:number;
-    readonly rH:number;
-    readonly rX:number;
-    readonly rY:number;
+    readonly roomObject: roomInterface;
+    readonly rW: number;
+    readonly rH: number;
+    readonly rX: number;
+    readonly rY: number;
 }
 
 export function Room(props:Props){
@@ -58,12 +58,12 @@ export function Room(props:Props){
         }
     }, []);
 
-    function test(){
-        console.log("Room ID from Room Component: " + props.roomInfo.id)
+    function giveRoomID(){
+        console.log("Room ID from Room Component: " + p.roomObject.id)
     }
 
     return(
-        <Container eventMode="static" cursor="pointer" onclick={test}>
+        <Container eventMode="static" cursor="pointer" onclick={giveRoomID}>
             <Graphics draw={drawRoom}/>
         </Container>
     )
