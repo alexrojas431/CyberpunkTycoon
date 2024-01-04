@@ -2,6 +2,11 @@ import { Stage, Sprite } from "@pixi/react";
 import { TopUI } from "../../Components/TopUI"
 import "./MainScreen.css";
 import { Ground } from "../../Components/Ground";
+import { useAtom } from "jotai";
+import { buildingIDCounterAtom, buildingListAtom, buildingShapeListAtom } from "../../GameState/BuildingState";
+import { BuildingInterface } from "../../interface/BuildingInterface";
+import { roomIDCounterAtom } from "../../GameState/Room";
+import { People } from "../../Components/People";
 import { Building } from "../../Components/Building";
 
 /**

@@ -1,7 +1,12 @@
 import { atom } from "jotai";
 
-const totalProfit = atom(3000);
-const baseEmployeePay = atom(10);
-const baseIncome = atom(1);
+const totalProfitAtom = atom(1000);
+const baseEmployeePayAtom = atom(10);
+const baseIncomeAtom = atom(1);
 
-export { totalProfit, baseEmployeePay, baseIncome};
+export { totalProfitAtom, baseEmployeePayAtom, baseIncomeAtom};
+
+/*export const economySelectors = {
+    // Maintance cost for room. TODO Revisit and gradually increase with each room added
+    increaseProfit: (value:number) => value
+};*/

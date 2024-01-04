@@ -41,14 +41,17 @@ Overall Goal:
 */
 
 import { useAtom } from "jotai";
+import { useState, useEffect, useRef } from "react";
 import { roomsListAtom, roomSelectors } from "./GameState/Room";
+import { totalProfitAtom } from "./GameState/Economy";
+import { totalEmployees as totalEmployeesAtom } from "./GameState/Company";
 import { Room } from './interface/Room';
 
 function MoneySystem() {
 
-    /*const [totalProfit, setTotalProfit] = useState(3000);
+    const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
 
-    let baseIncome = 1;
+    /*let baseIncome = 1;
     let totalEmployees = 0;
     let baseEmployeePay = 2;
     let winningProfitGoal = 1000000;
@@ -57,67 +60,92 @@ function MoneySystem() {
         return totalEmployees * baseEmployeePay;
     };*/
 
+    const second = 1000;
+    const roomRevenueTimer = useRef(3*second);
+    const employeePayTimer = useRef(30*second); // Will make 30 seconds
     const [roomsList, setRoomsList] = useAtom(roomsListAtom);
+    const [totalEmployees, setTotalEmployees] = useAtom(totalEmployeesAtom);
 
     const addRoom = (newRoom: Room) => {
         setRoomsList((prevList: any) => [...prevList, newRoom]);
+        setTotalProfit(profit => profit - (newRoom.cost)*roomsList.length*.5);
     };
 
-    /*useEffect(() => {
-        const newRoom: Room = {
-          upgradeLevel: 2,
-          cost: 150,
-          baseIncome: 15,
-          customerPresent: false,
-          numOfEmployees: 1,
-          baseMaintanceModifier: 120,
-          baseTimeTaskCompletion: 3,
-          taskComplete: false,
-        };
-    
-        addRoom(newRoom);
-        console.log("Hello")
-      }, []);*/
- 
+    useEffect(() => {
+        // TODO Weird issue where adding items to roomsList will reset the timer. 
+        // I believe this is due to the mapping in the render. 
+        // Note: Every Room component will have a independent timer running
+        const roomInterval = setInterval(() => {
+            console.log("Adding Profit from Rooms!");
+            let roomProfit = 0;
+            roomsList.map((room, index) => {
+                roomProfit += roomSelectors.getRoomIncome(index)(room,1);
+            });
+            console.log("Adding " + roomProfit + " to Profit from Rooms!");
+            setTotalProfit(profit => profit + roomProfit);
+        }, roomRevenueTimer.current); // Timer will depend on the room task completion time. Add a prop
+
+        return () => clearInterval(roomInterval);
+    }, [roomsList]);
+
+    useEffect(() => {
+        const employeePayInterval = setInterval(() => {
+            console.log("Removing Profit for Employees!");
+            let employeePay = totalEmployees * 100;
+            console.log("Removing " + employeePay + " from Profit for employees!");
+            setTotalProfit(profit => profit - employeePay);
+        }, employeePayTimer.current);
+
+        return () => clearInterval(employeePayInterval);
+    }, [roomsList, totalEmployees]);
+
     return (
         <div>
-            {roomsList.map((room, index) => {
-                const roomMaintance = roomSelectors.getRoomMaintance(index)(room);
-                const taskCompletionTime = roomSelectors.getTaskCompletionTime(index)(room);
-                const getRoomIncome = roomSelectors.getRoomIncome(index)(room, 1);
+            <div style={{display: 'flex',justifyContent: 'left'}}>
+                {roomsList.map((room, index) => {
+                    const roomMaintance = roomSelectors.getRoomMaintance(index)(room);
+                    const taskCompletionTime = roomSelectors.getTaskCompletionTime(index)(room);
+                    const getRoomIncome = roomSelectors.getRoomIncome(index)(room, 1);
 
-                return (
-                    <div key={room.id}>
-                        <p>Room ID: {room.id}</p>
-                        <p>Room Upgrade Level: {room.upgradeLevel}</p>
-                        <p>Room Cost: {room.cost}</p>
-                        <p>Room Base Income: {room.baseIncome}</p>
-                        <p>Room Customer Present: {room.customerPresent.toString()}</p>
-                        <p>Room Num Employee: {room.numOfEmployees}</p>
-                        <p>Room Base Maintiance Modifier: {room.baseMaintanceModifier}</p>
-                        <p>Room Base Time Task Completion: {room.baseTimeTaskCompletion}</p>
-                        <p>Room Task Complete: {room.taskComplete}</p>
-                        <p>Room Maintenance: {roomMaintance}</p>
-                        <p>Task Completion Time: {taskCompletionTime}</p>
-                        <p>Room Income: {getRoomIncome}</p>
-                        <br></br>
-                    </div>
-                );
-            })}
-            
-            <button onClick={() => addRoom({
-                        id: 1,
-                        x: 1,
-                        y: 1,
-                        upgradeLevel: 2,
-                        cost: 150,
-                        baseIncome: 15,
-                        customerPresent: false,
-                        numOfEmployees: 1,
-                        baseMaintanceModifier: 120,
-                        baseTimeTaskCompletion: 3,
-                        taskComplete: false,
-                        })}>Add Room</button>
+                    return (
+                        <div key={index}>
+                            <p>Room {index}</p>
+                            <p>Room Upgrade Level: {room.upgradeLevel}</p>
+                            <p>Room Cost: {room.cost}</p>
+                            <p>Room Base Income: {room.baseIncome}</p>
+                            <p>Room Customer Present: {room.customerPresent.toString()}</p>
+                            <p>Room Num Employee: {room.numOfEmployees}</p>
+                            <p>Room Base Maintiance Modifier: {room.baseMaintanceModifier}</p>
+                            <p>Room Base Time Task Completion: {room.baseTimeTaskCompletion}</p>
+                            <p>Room Task Complete: {room.taskComplete}</p>
+                            <p>Room Maintenance: {roomMaintance}</p>
+                            <p>Task Completion Time: {taskCompletionTime}</p>
+                            <p>Room Income: {getRoomIncome}</p>
+                            <br></br>
+                        </div>
+                    );
+                })}
+                <button onClick={() => addRoom({
+                            id: 1,
+                            x: 1,
+                            y: 1,
+                            upgradeLevel: 2,
+                            cost: 150,
+                            baseIncome: 15,
+                            customerPresent: false,
+                            numOfEmployees: 1,
+                            baseMaintanceModifier: 120,
+                            baseTimeTaskCompletion: 3,
+                            taskComplete: false,
+                            })}>Add Room</button>
+                <button onClick={() => {setTotalEmployees(totalEmployees + 1)}}>Add Employee</button>
+            </div>
+            <div style={{display: 'flex',justifyContent: 'right'}}>
+                Total Profit: {totalProfit}
+            </div>
+            <div style={{display: 'flex',justifyContent: 'right'}}>
+                Total Employees: {totalEmployees}
+            </div>
         </div>
     );
 }

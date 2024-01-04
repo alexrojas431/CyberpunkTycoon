@@ -1,18 +1,18 @@
-import { Container, Graphics, Sprite, Stage, Text } from "@pixi/react";
 import "./TopUI.css";
-import image from "./topUILeftBox.png";
-import { useCallback } from "react";
-import { Graphics as gg } from "pixi.js";
-
+import { totalProfitAtom } from "./../GameState/Economy";
+import { useAtom } from "jotai";
 
 export function TopUI(){
+
+    const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
+
     return(
         <span className = "topUI">
             this is topui
             <div className= "topStick">
                 This is Topstick
                 <span className="moneyCounter">
-                    Money counter
+                    Profit: {totalProfit}
                 </span>
                 <span className="moneyRate">
                     Money Rate
