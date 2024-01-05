@@ -2,12 +2,15 @@ import "./TopUI.css";
 import { totalProfitAtom } from "./../GameState/Economy";
 import { useAtom } from "jotai";
 import { totalEmployees as totalEmployeesAtom } from "../GameState/Company";
+import { roomsListAtom } from "../GameState/Room";
 import { useEffect, useRef } from "react";
+import { roomSelectors } from "./../GameState/Room"
 
 export function TopUI(){
 
     const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
     const [totalEmployees, setTotalEmployees] = useAtom(totalEmployeesAtom);
+    const [roomList, getRoomList] = useAtom(roomsListAtom)
     const second = 1000;
     const employeePayTimer = useRef(30*second); // Will make 30 seconds
 
@@ -21,6 +24,18 @@ export function TopUI(){
 
         return () => clearInterval(employeePayInterval);
     }, [totalEmployees]);
+
+    const addEmployee = () => {
+        let totalEmployeesInRooms = roomSelectors.getTotalEmployeesInRooms(roomList);
+        console.log(totalEmployees);
+        console.log(roomList.length*2);
+        // totalEmployees < roomList.length*2
+        if(totalEmployees < roomList.length*2 && roomList.length!=0) {
+            setTotalEmployees(totalEmployees + 1);
+        } else {
+            console.log("Not enough rooms to add employee!");
+        }
+    };
 
     return(
         <span className = "topUI">
@@ -41,7 +56,7 @@ export function TopUI(){
                 </span>
                 <div>
                     Total Employees: {totalEmployees}
-                    <button onClick={() => {setTotalEmployees(totalEmployees + 1)}}>Add Employee</button>
+                    <button onClick={() => {addEmployee()}}>Add Employee</button>
                 </div>
             </div>
         </span>

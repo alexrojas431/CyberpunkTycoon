@@ -76,18 +76,29 @@ export function Room(p:Props){
         console.log("Room ID from Room Component: " + p.roomObject.id)
     }
 
+    function renderSprites(){
+        let sprites: any[] = []
+        for(let i = 0; i < p.roomObject.numOfEmployees; i++) {
+            sprites = [
+                ...sprites, 
+                <People 
+                    pX={employeeSpriteXCoor + (60 * i)} 
+                    pY={employeeSpriteYCoor} 
+                    pW={employeeSpriteWidth} 
+                    pH={employeeSpriteHeight}
+                />
+            ]
+        }
+
+        return sprites;
+    }
+
     // Use Room List Atom and set global X and Y using graphic1 here
 
     return(
         <Container eventMode="static" cursor="pointer" onclick={giveRoomID}>
             <Graphics draw={drawRoom}/>
-            {/* Add People Sprites Here */}
-            <People 
-                pX={employeeSpriteXCoor} 
-                pY={employeeSpriteYCoor} 
-                pW={employeeSpriteWidth} 
-                pH={employeeSpriteHeight}
-            />
+            { renderSprites() }
         </Container>
     )
 }

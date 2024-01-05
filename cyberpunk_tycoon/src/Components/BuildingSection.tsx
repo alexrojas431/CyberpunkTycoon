@@ -7,6 +7,7 @@ import { useAtom } from "jotai";
 import { roomIDCounterAtom, roomsListAtom as roomListAtom } from "../GameState/Room";
 import { Room as roomInterface } from '../interface/Room';
 import { buildingListAtom } from "../GameState/BuildingState";
+import { totalEmployees as totalEmployeesAtom } from "../GameState/Company";
 
 /**
  * BuildingSection.tsx
@@ -30,6 +31,7 @@ export function BuildingSection(p: Props){
     const [roomIDCounter, setRoomIDCounter] = useAtom(roomIDCounterAtom);
     const [topRoomExists, setTopRoomExists] = useState<boolean>(false);
     const [bottomRoomExists, setBottomRoomExists] = useState<boolean>(false);
+    const [totalEmployees, setTotalEmployees] = useAtom(totalEmployeesAtom);
 
     const buildingWidth = 500;
     const buildingHeight = 600;
@@ -54,6 +56,14 @@ export function BuildingSection(p: Props){
     const addRoom = (newRoom: any) => {
         setRoomList((prevList: any) => [...prevList, newRoom]);
     };
+
+    const getTotalEmployeesInRooms = () => { // change with room selector function instead
+        let totalEmployeesInRooms = 0;
+        roomList.forEach(room => {
+            totalEmployeesInRooms += room.numOfEmployees;
+        });
+        return totalEmployeesInRooms;
+    }
 
     const rButton = useCallback((g:pixiGraphics) => {
         g.clear();
@@ -106,6 +116,13 @@ export function BuildingSection(p: Props){
             const id = roomIDCounter;
             setRoomIDCounter(incrementId(roomIDCounter));
             updateBuildingRoomID(p.id, id);
+
+            let numOfEmployees = 0;
+
+            if(getTotalEmployeesInRooms() == 0) {
+                console.log("There are no employees in any room!")
+                numOfEmployees = 2;
+            }
             
             addRoom({
                 id: id,
@@ -115,7 +132,7 @@ export function BuildingSection(p: Props){
                 cost: 150,
                 baseIncome: 15,
                 customerPresent: false,
-                numOfEmployees: 1,
+                numOfEmployees: numOfEmployees,
                 baseMaintanceModifier: 120,
                 baseTimeTaskCompletion: 3,
                 taskComplete: false,
