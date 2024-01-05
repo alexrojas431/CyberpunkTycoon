@@ -1,4 +1,7 @@
 export interface Room {
+    id: number;
+    x: number;
+    y: number;
     upgradeLevel: number;
     cost: number;
     baseIncome: number;
