@@ -1,9 +1,9 @@
-import { Container, Graphics } from "@pixi/react";
 import { useEffect, useRef, useCallback} from "react";
+import { Container, Graphics } from "@pixi/react";
 import { Graphics as pixiGraphics } from "pixi.js";
+import { useAtom } from "jotai";
 import { Room as roomInterface } from "../interface/Room";
 import { totalProfitAtom } from "./../GameState/Economy";
-import { useAtom } from "jotai";
 import { roomSelectors } from "./../GameState/Room";
 
 interface Props{

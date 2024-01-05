@@ -1,8 +1,8 @@
 import { Stage, Sprite } from "@pixi/react";
-import { TopUI } from "../../Components/TopUI"
-import "./MainScreen.css";
 import { Ground } from "../../Components/Ground";
 import { Building } from "../../Components/Building";
+import { TopUI } from "../../Components/TopUI"
+import "./MainScreen.css";
 
 /**
  * MainScreen.tsx

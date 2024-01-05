@@ -1,9 +1,9 @@
 import { useCallback, useState } from "react";
 import * as PIXI from "pixi.js";
+import { Graphics } from "@pixi/react";
+import { useAtom } from "jotai";
 import { buildingIDCounterAtom, buildingListAtom } from "../GameState/BuildingState";
 import { BuildingInterface } from "../interface/BuildingInterface";
-import { useAtom } from "jotai";
-import { Graphics } from "@pixi/react";
 import { BuildingSection } from "./BuildingSection";
 
 /**
