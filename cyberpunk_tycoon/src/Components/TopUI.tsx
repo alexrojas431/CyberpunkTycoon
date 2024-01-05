@@ -10,7 +10,7 @@ export function TopUI(){
 
     const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
     const [totalEmployees, setTotalEmployees] = useAtom(totalEmployeesAtom);
-    const [roomList, getRoomList] = useAtom(roomsListAtom)
+    const [roomList, setRoomList] = useAtom(roomsListAtom)
     const second = 1000;
     const employeePayTimer = useRef(30*second); // Will make 30 seconds
 
@@ -32,6 +32,12 @@ export function TopUI(){
         // totalEmployees < roomList.length*2
         if(totalEmployees < roomList.length*2 && roomList.length!=0) {
             setTotalEmployees(totalEmployees + 1);
+            let roomListCopy = roomList;
+            let index = roomListCopy.findIndex(room => room.numOfEmployees < 2);
+            roomListCopy[index].numOfEmployees++;
+            setRoomList([
+                ...roomListCopy
+            ]);
         } else {
             console.log("Not enough rooms to add employee!");
         }
