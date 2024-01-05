@@ -3,6 +3,7 @@ import { TopUI } from "../../Components/TopUI"
 import "./MainScreen.css";
 import { Ground } from "../../Components/Ground";
 import { Building } from "../../Components/Building";
+import { People } from "../../Components/People";
 
 /**
  * MainScreen.tsx
@@ -23,12 +24,6 @@ export function MainScreen(){
                 height={window.innerHeight}
                 options={{backgroundColor:0xff6699,backgroundAlpha: 1}}
             >
-                <Sprite
-                    image="https://pixijs.io/pixi-react/img/bunny.png"
-                    x={400}
-                    y={270}
-                    anchor={{ x: 0, y: 0 }}
-                />
                 <Building/>
                 {/*<Ground/>*/}
             </Stage>

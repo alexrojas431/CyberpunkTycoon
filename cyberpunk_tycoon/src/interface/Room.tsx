@@ -1,4 +1,5 @@
 export interface Room {
+    //[x: string]: any;
     id: number;
     x: number;
     y: number;

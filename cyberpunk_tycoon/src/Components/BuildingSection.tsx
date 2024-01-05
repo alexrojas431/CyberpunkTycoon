@@ -38,7 +38,9 @@ export function BuildingSection(p: Props){
     
     const roomWidthPaddingPercent = 0.025;
     const roomHeightPercent = 0.4;
+    //600*.4
     const roomHeight = buildingHeight * roomHeightPercent;
+    //500-(500*0.025*2)
     const roomWidth = buildingWidth - (buildingWidth * roomWidthPaddingPercent * 2);
 
     const buildingHeightPadding = ((buildingHeight - (roomHeight*2))/2)
@@ -49,7 +51,7 @@ export function BuildingSection(p: Props){
 
     const incrementId = (id: number) => id+1;
 
-    const addRoom = (newRoom: roomInterface) => {
+    const addRoom = (newRoom: any) => {
         setRoomList((prevList: any) => [...prevList, newRoom]);
     };
 
@@ -118,6 +120,16 @@ export function BuildingSection(p: Props){
                 baseTimeTaskCompletion: 3,
                 taskComplete: false,
             });
+            /*addRoom(
+                <Room
+                    key={0}
+                    roomObject={room}
+                    rW={roomWidth}
+                    rX={roomXCoordinate}
+                    rH={roomHeight}
+                    rY={roomYCoordinate}
+                />
+            );*/
         }
     };
   

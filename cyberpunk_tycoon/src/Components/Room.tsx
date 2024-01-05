@@ -6,6 +6,7 @@ import { totalProfitAtom } from "./../GameState/Economy";
 import { useAtom } from "jotai";
 import { roomSelectors } from "./../GameState/Room";
 import { People } from "./People";
+import { roomsListAtom } from "../GameState/Room";
 
 interface Props{
     readonly roomObject: roomInterface;
@@ -21,6 +22,7 @@ export function Room(p:Props){
     const second = 1000;
     const roomRevenueTimer = useRef(p.roomObject.baseTimeTaskCompletion*second);
     const roomRentTimer = useRef(15*second);
+    const [roomList, setRoomList] = useAtom(roomsListAtom);
 
     const employeeSpriteHeight = 85;
     const employeeSpriteWidth = 60;
@@ -33,6 +35,11 @@ export function Room(p:Props){
         console.log("Coordinates:", p.rX, p.rY, p.rW, p.rH)
         g.drawRect(p.rX, p.rY, p.rW, p.rH);
         g.endFill();
+        //console.log(roomList);
+        //let roomListCopy = roomList
+        //let index = roomListCopy.findIndex(room => room.id === p.roomObject.id)
+        //console.log(g)
+        //roomListCopy[index] = {...roomListCopy[index], globalX: g.getGlobalPosition., globalY};
     },[]);
 
     useEffect(() => {
@@ -68,6 +75,8 @@ export function Room(p:Props){
     function giveRoomID(){
         console.log("Room ID from Room Component: " + p.roomObject.id)
     }
+
+    // Use Room List Atom and set global X and Y using graphic1 here
 
     return(
         <Container eventMode="static" cursor="pointer" onclick={giveRoomID}>

@@ -2,6 +2,7 @@ import { Sprite, useTick } from "@pixi/react";
 import { useState } from "react";
 import { roomsListAtom } from "../GameState/Room";
 import { useAtom } from "jotai";
+import { hitTest } from "../Utils/Utils";
 
 /**
  * People.tsx
@@ -72,6 +73,7 @@ export function People(p:Props){
 
     const [x, setX] = useState(p.pX)
     const [y, setY] = useState(p.pY)
+    const [roomsList, setRoomsList] = useAtom(roomsListAtom);
 
     const moveRight = (x: number) => x+10;
     const moveLeft = (x: number) => x-10;
@@ -95,10 +97,8 @@ export function People(p:Props){
         if(sx>x){setX(sx-=toX);}
         setY(sy+=toY);
     };*/
-  
-    const [roomList] = useAtom(roomsListAtom);
 
-    useTick(delta =>{
+    /*useTick(delta =>{
         keyboard("ArrowLeft").press = () => {
             setX(moveLeft(x));
         };
@@ -111,7 +111,35 @@ export function People(p:Props){
         keyboard("ArrowDown").press = () => {
             setY(moveDown(y));
         };
-    });
+
+        roomsList.map((room, index) => {
+
+            interface HitBox {
+                x: number;
+                y: number;
+                width: number;
+                height: number;
+            };
+            //console.log(room.props)
+            let object1:HitBox = {
+                x: room.x, 
+                y: room.y, 
+                width: 500-(500*0.025*2), 
+                height: 600*.4
+            };
+            let object2:HitBox = {
+                x: x, 
+                y: y, 
+                width: p.pW, 
+                height: p.pH
+            };
+            //console.log(object1)
+            //console.log(object2)
+            if(hitTest(object1, object2)) {
+                console.log("In a box!")
+            }
+        });
+    });*/
 
     return (
         <Sprite
