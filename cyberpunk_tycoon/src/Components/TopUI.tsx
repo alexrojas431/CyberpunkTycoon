@@ -1,10 +1,26 @@
 import "./TopUI.css";
 import { totalProfitAtom } from "./../GameState/Economy";
 import { useAtom } from "jotai";
+import { totalEmployees as totalEmployeesAtom } from "../GameState/Company";
+import { useEffect, useRef } from "react";
 
 export function TopUI(){
 
     const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
+    const [totalEmployees, setTotalEmployees] = useAtom(totalEmployeesAtom);
+    const second = 1000;
+    const employeePayTimer = useRef(30*second); // Will make 30 seconds
+
+    useEffect(() => {
+        const employeePayInterval = setInterval(() => {
+            console.log("Removing Profit for Employees!");
+            let employeePay = totalEmployees * 100;
+            console.log("Removing " + employeePay + " from Profit for employees!");
+            setTotalProfit(profit => profit - employeePay);
+        }, employeePayTimer.current);
+
+        return () => clearInterval(employeePayInterval);
+    }, [totalEmployees]);
 
     return(
         <span className = "topUI">
@@ -23,6 +39,10 @@ export function TopUI(){
                 <span className="morale">
                     Worker Morale
                 </span>
+                <div>
+                    Total Employees: {totalEmployees}
+                    <button onClick={() => {setTotalEmployees(totalEmployees + 1)}}>Add Employee</button>
+                </div>
             </div>
         </span>
     )
