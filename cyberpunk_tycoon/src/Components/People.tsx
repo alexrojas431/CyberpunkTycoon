@@ -10,17 +10,24 @@ import { useAtom } from "jotai";
  *  
 */
 
-export function People(){
+interface Props{
+    readonly pX: number;
+    readonly pY: number;
+    readonly pW: number;
+    readonly pH: number;
+}
 
-    const [x, setX] = useState(400)
-    const [y, setY] = useState(650)
+export function People(p:Props){
+
+    const [x, setX] = useState(0)
+    const [y, setY] = useState(0)
 
     const moveRight = (x: number) => x+1;
     const moveLeft = (x: number) => x-1;
     const moveUp = (y: number) => y+1;
     const moveDown = (y: number) => y-1;
     
-    const moveToRoom = (sx: number, sy: number, x: number, y: number) =>{
+    /*const moveToRoom = (sx: number, sy: number, x: number, y: number) =>{
         // Calculate direction towards player
         let toX = x - sx;
         let toY = y - sy;
@@ -36,11 +43,11 @@ export function People(){
         //setX(sx-=toX);
         if(sx>x){setX(sx-=toX);}
         setY(sy+=toY);
-    };
+    };*/
   
     const [roomList] = useAtom(roomsListAtom);
 
-    useTick(delta =>{
+    /*useTick(delta =>{
         if(roomList.length < 1 || roomList == undefined){
             setX(moveLeft(x));
             //console.log("From the People Component: " + "No Room");
@@ -56,14 +63,16 @@ export function People(){
             setX(moveRight(x));
             //console.log("From the People Component: " + "Room's available");
         }
-    });
+    });*/
 
     return (
         <Sprite
             image="https://pixijs.io/pixi-react/img/bunny.png"
-            x={x}
-            y={y}
+            x={p.pX}
+            y={p.pY}
             scale={2}
+            width={p.pW}
+            height={p.pH}
         />
     );
 };

@@ -5,6 +5,7 @@ import { Room as roomInterface } from "../interface/Room";
 import { totalProfitAtom } from "./../GameState/Economy";
 import { useAtom } from "jotai";
 import { roomSelectors } from "./../GameState/Room";
+import { People } from "./People";
 
 interface Props{
     readonly roomObject: roomInterface;
@@ -21,9 +22,15 @@ export function Room(p:Props){
     const roomRevenueTimer = useRef(p.roomObject.baseTimeTaskCompletion*second);
     const roomRentTimer = useRef(15*second);
 
+    const employeeSpriteHeight = 85;
+    const employeeSpriteWidth = 60;
+    const employeeSpriteXCoor = p.rX+(p.rW/2)-employeeSpriteWidth;
+    const employeeSpriteYCoor = p.rY+p.rH-employeeSpriteHeight;
+
     const drawRoom = useCallback((g:pixiGraphics) => {
         g.clear();
         g.beginFill(0x6600ff);
+        console.log("Coordinates:", p.rX, p.rY, p.rW, p.rH)
         g.drawRect(p.rX, p.rY, p.rW, p.rH);
         g.endFill();
     },[]);
@@ -65,6 +72,13 @@ export function Room(p:Props){
     return(
         <Container eventMode="static" cursor="pointer" onclick={giveRoomID}>
             <Graphics draw={drawRoom}/>
+            {/* Add People Sprites Here */}
+            <People 
+                pX={employeeSpriteXCoor} 
+                pY={employeeSpriteYCoor} 
+                pW={employeeSpriteWidth} 
+                pH={employeeSpriteHeight}
+            />
         </Container>
     )
 }

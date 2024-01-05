@@ -56,7 +56,7 @@ export function BuildingSection(p: Props){
     const rButton = useCallback((g:pixiGraphics) => {
         g.clear();
         g.beginFill(0x8c3b0c);
-        g.drawRect(p.bX, p.bY, 100, 100);
+        g.drawRect(p.bX, p.bY, 20, 20);
         g.endFill();
     },[])
  
@@ -151,7 +151,7 @@ export function BuildingSection(p: Props){
                 eventMode="static"
                 cursor="pointer"
                 onclick={makeRoomInBuilding}
-                hitArea={new PIXI.Rectangle(p.bX, p.bY, 100, 100)}
+                hitArea={new PIXI.Rectangle(p.bX, p.bY, 50, 50)}
             />
         </Container>
     )

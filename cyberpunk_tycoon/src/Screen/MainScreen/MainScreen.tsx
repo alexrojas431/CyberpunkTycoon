@@ -30,7 +30,7 @@ export function MainScreen(){
                     anchor={{ x: 0, y: 0 }}
                 />
                 <Building/>
-                <Ground/>
+                {/*<Ground/>*/}
             </Stage>
         </div>
     );
