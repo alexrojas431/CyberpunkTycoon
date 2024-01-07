@@ -26,10 +26,6 @@ export function TopUI(){
     }, [totalEmployees]);
 
     const addEmployee = () => {
-        let totalEmployeesInRooms = roomSelectors.getTotalEmployeesInRooms(roomList);
-        console.log(totalEmployees);
-        console.log(roomList.length*2);
-        // totalEmployees < roomList.length*2
         if(totalEmployees < roomList.length*2 && roomList.length!=0) {
             setTotalEmployees(totalEmployees + 1);
             let roomListCopy = roomList;

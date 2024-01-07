@@ -19,14 +19,15 @@ interface Props{
 export function Room(p:Props){
 
     const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
+    //const [spritePosition, setSprintPosition] = [false, false, false, false, false, false];
     const second = 1000;
     const roomRevenueTimer = useRef(p.roomObject.baseTimeTaskCompletion*second);
     const roomRentTimer = useRef(15*second);
-    const [roomList, setRoomList] = useAtom(roomsListAtom);
+    //const [roomList, setRoomList] = useAtom(roomsListAtom);
 
     const employeeSpriteHeight = 85;
     const employeeSpriteWidth = 60;
-    const employeeSpriteXCoor = p.rX+(p.rW/2)-employeeSpriteWidth;
+    const employeeSpriteXCoor = p.rX+employeeSpriteWidth/2;
     const employeeSpriteYCoor = p.rY+p.rH-employeeSpriteHeight;
 
     const drawRoom = useCallback((g:pixiGraphics) => {
@@ -35,11 +36,12 @@ export function Room(p:Props){
         console.log("Coordinates:", p.rX, p.rY, p.rW, p.rH)
         g.drawRect(p.rX, p.rY, p.rW, p.rH);
         g.endFill();
-        //console.log(roomList);
-        //let roomListCopy = roomList
-        //let index = roomListCopy.findIndex(room => room.id === p.roomObject.id)
-        //console.log(g)
-        //roomListCopy[index] = {...roomListCopy[index], globalX: g.getGlobalPosition., globalY};
+        /*console.log(roomList);
+        let roomListCopy = roomList
+        let index = roomListCopy.findIndex(room => room.id === p.roomObject.id)
+        console.log(g);
+        console.log("Corrdinatesssssss: ", g.toGlobal(g.getGlobalPosition()))
+        roomListCopy[index] = {...roomListCopy[index], globalX: g.getGlobalPosition().x, globalY: g.getGlobalPosition().y};*/
     },[]);
 
     useEffect(() => {
@@ -77,19 +79,21 @@ export function Room(p:Props){
     }
 
     function renderSprites(){
-        let sprites: any[] = []
-        for(let i = 0; i < p.roomObject.numOfEmployees; i++) {
+        let sprites: any[] = [];
+        //let spritePostion = [false, false, false, false, false, false]
+        for(let positionI = 0; positionI < p.roomObject.numOfEmployees; positionI++) {
             sprites = [
                 ...sprites, 
                 <People 
-                    pX={employeeSpriteXCoor + (60 * i)} 
+                    key={"spite"+positionI}
+                    pX={employeeSpriteXCoor + (60 * positionI)} 
                     pY={employeeSpriteYCoor} 
                     pW={employeeSpriteWidth} 
                     pH={employeeSpriteHeight}
                 />
             ]
+            //spritePostion[positionI] = true;
         }
-
         return sprites;
     }
 

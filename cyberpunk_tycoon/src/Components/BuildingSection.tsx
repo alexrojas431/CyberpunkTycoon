@@ -4,7 +4,7 @@ import { Graphics as pixiGraphics } from "pixi.js";
 import { Room } from "./Room";
 import * as PIXI from "pixi.js";
 import { useAtom } from "jotai";
-import { roomIDCounterAtom, roomsListAtom as roomListAtom } from "../GameState/Room";
+import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from "../GameState/Room";
 import { Room as roomInterface } from '../interface/Room';
 import { buildingListAtom } from "../GameState/BuildingState";
 import { totalEmployees as totalEmployeesAtom } from "../GameState/Company";
@@ -119,7 +119,7 @@ export function BuildingSection(p: Props){
 
             let numOfEmployees = 0;
 
-            if(getTotalEmployeesInRooms() == 0) {
+            if(roomSelectors.getTotalEmployeesInRooms(roomList) == 0) {
                 console.log("There are no employees in any room!")
                 numOfEmployees = 2;
             }

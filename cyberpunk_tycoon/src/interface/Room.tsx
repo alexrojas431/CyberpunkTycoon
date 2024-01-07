@@ -11,4 +11,6 @@ export interface Room {
     baseMaintanceModifier: number;
     baseTimeTaskCompletion: number;
     taskComplete: boolean;
+    //globalX: number;
+    //globalY: number;
 };

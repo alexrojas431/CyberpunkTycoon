@@ -39,9 +39,9 @@ Overall Goal:
 - Will need to make scenerios with seperate values (for all above) 
   and generate spreadsheets to see if values are balanced
 */
-
+/*
 import { useAtom } from "jotai";
-import { useState, useEffect, useRef } from "react";
+/*import { useState, useEffect, useRef } from "react";
 import { roomsListAtom, roomSelectors } from "./GameState/Room";
 import { totalProfitAtom } from "./GameState/Economy";
 import { totalEmployees as totalEmployeesAtom } from "./GameState/Company";
@@ -59,7 +59,7 @@ function MoneySystem() {
     function getTotalEmployeePlay(): number {
         return totalEmployees * baseEmployeePay;
     };*/
-
+/*
     const second = 1000;
     const roomRevenueTimer = useRef(3*second);
     const employeePayTimer = useRef(30*second); // Will make 30 seconds
@@ -149,5 +149,6 @@ function MoneySystem() {
         </div>
     );
 }
-  
-export default MoneySystem;  
+*/
+let MoneySystem:number = 2
+export default MoneySystem;

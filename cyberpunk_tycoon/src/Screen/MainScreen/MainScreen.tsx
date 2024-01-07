@@ -25,7 +25,7 @@ export function MainScreen(){
                 options={{backgroundColor:0xff6699,backgroundAlpha: 1}}
             >
                 <Building/>
-                {/*<Ground/>*/}
+                <Ground/>
             </Stage>
         </div>
     );
