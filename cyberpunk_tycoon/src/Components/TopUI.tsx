@@ -41,7 +41,6 @@ export function TopUI(){
 
     return(
             <span className= "topStick">
-                This is Topstick
                 <span className="moneyCounter">
                     Profit: {totalProfit}
                 </span>
@@ -54,7 +53,6 @@ export function TopUI(){
                 <span className="morale">
                     Worker Morale
                 </span>
-
                 <div>
                     Total Employees: {totalEmployees}
                     <button onClick={() => {addEmployee()}}>Add Employee</button>
