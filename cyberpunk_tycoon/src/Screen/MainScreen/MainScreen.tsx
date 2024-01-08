@@ -5,6 +5,7 @@ import { Building } from "../../Components/Building";
 import { TopUI } from "../../Components/TopUI"
 import "./MainScreen.css";
 import {Viewport} from "./Viewport";
+import { People } from "../../Components/People";
 
 /**
  * MainScreen.tsx
@@ -59,11 +60,6 @@ export function MainScreen(){
                 height={stageHeight}
                 options={{backgroundColor:0xff6699,backgroundAlpha: 1}}
             >
-                <Sprite
-                    image="https://pixijs.io/pixi-react/img/bunny.png"
-                    x={400}
-                    y={270}
-                />
                 <Building/>
                 <Ground width={stageWidth}/>
             </Stage>

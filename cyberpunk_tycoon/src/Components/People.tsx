@@ -1,7 +1,10 @@
-import { Sprite, useTick } from "@pixi/react";
-import { useState } from "react";
+import { useApp, useTick, AnimatedSprite, Sprite } from "@pixi/react";
+import { useState, useEffect } from "react";
 import { roomsListAtom } from "../GameState/Room";
-import { useAtom } from "jotai";
+import { useAtom} from "jotai";
+import * as PIXI from "pixi.js";
+import { hitTest } from "../Utils/Utils";
+import punk from './punk.png'
 
 /**
  * People.tsx
@@ -10,17 +13,76 @@ import { useAtom } from "jotai";
  *  
 */
 
-export function People(){
-
-    const [x, setX] = useState(400)
-    const [y, setY] = useState(650)
-
-    const moveRight = (x: number) => x+1;
-    const moveLeft = (x: number) => x-1;
-    const moveUp = (y: number) => y+1;
-    const moveDown = (y: number) => y-1;
+function keyboard(value:any) {
+    const key = {
+        value: value, 
+        isDown: false, 
+        isUp: true,
+        release(){},
+        downHandler(e:any){},
+        press(){},
+        upHandler(e:any){},
+        unsubscribe(){}
+    };
+    //The `downHandler`
+    key.downHandler = (event:any) => {
+      if (event.key === key.value) {
+        if (key.isUp && key.press) {
+          key.press();
+        }
+        key.isDown = true;
+        key.isUp = false;
+        event.preventDefault();
+      }
+    };
+  
+    //The `upHandler`
+    key.upHandler = (event) => {
+      if (event.key === key.value) {
+        if (key.isDown && key.release) {
+          key.release();
+        }
+        key.isDown = false;
+        key.isUp = true;
+        event.preventDefault();
+      }
+    };
+  
+    //Attach event listeners
+    const downListener = key.downHandler.bind(key);
+    const upListener = key.upHandler.bind(key);
     
-    const moveToRoom = (sx: number, sy: number, x: number, y: number) =>{
+    window.addEventListener("keydown", downListener, false);
+    window.addEventListener("keyup", upListener, false);
+    
+    // Detach event listeners
+    key.unsubscribe = () => {
+      window.removeEventListener("keydown", downListener);
+      window.removeEventListener("keyup", upListener);
+    };
+    
+    return key;
+  }
+
+interface Props{
+    readonly pX: number;
+    readonly pY: number;
+    readonly pW: number;
+    readonly pH: number;
+}
+
+export function People(p:Props){
+
+    const [x, setX] = useState(p.pX)
+    const [y, setY] = useState(p.pY)
+    const [roomsList, setRoomsList] = useAtom(roomsListAtom);
+
+    const moveRight = (x: number) => x+10;
+    const moveLeft = (x: number) => x-10;
+    const moveUp = (y: number) => y-10;
+    const moveDown = (y: number) => y+10;
+    
+    /*const moveToRoom = (sx: number, sy: number, x: number, y: number) =>{
         // Calculate direction towards player
         let toX = x - sx;
         let toY = y - sy;
@@ -36,34 +98,59 @@ export function People(){
         //setX(sx-=toX);
         if(sx>x){setX(sx-=toX);}
         setY(sy+=toY);
-    };
-  
-    const [roomList] = useAtom(roomsListAtom);
+    };*/
 
-    useTick(delta =>{
-        if(roomList.length < 1 || roomList == undefined){
+    /*useTick(delta =>{
+        keyboard("ArrowLeft").press = () => {
             setX(moveLeft(x));
-            //console.log("From the People Component: " + "No Room");
-        }
-        else if(roomList[1] !== undefined){
-            //console.log("From the People Component: " + "Room 2 is available");
-            //setX(moveToRoom(x, roomList[1].x));
-            const speed = 6;
-            //setX((x + speed * delta + 400) % (window.innerWidth + 800) - 400);
-            moveToRoom(x,y,roomList[1].x, roomList[1].y);
-        }
-        else{
+        };
+        keyboard("ArrowRight").press = () => {
             setX(moveRight(x));
-            //console.log("From the People Component: " + "Room's available");
-        }
-    });
+        };
+        keyboard("ArrowUp").press = () => {
+            setY(moveUp(y));
+        };
+        keyboard("ArrowDown").press = () => {
+            setY(moveDown(y));
+        };
+
+        roomsList.map((room, index) => {
+
+            interface HitBox {
+                x: number;
+                y: number;
+                width: number;
+                height: number;
+            };
+            //console.log(room.props)
+            let object1:HitBox = {
+                x: room.x, 
+                y: room.y, 
+                width: 500-(500*0.025*2), 
+                height: 600*.4
+            };
+            let object2:HitBox = {
+                x: x, 
+                y: y, 
+                width: p.pW, 
+                height: p.pH
+            };
+            //console.log(object1)
+            //console.log(object2)
+            if(hitTest(object1, object2)) {
+                console.log("In a box!")
+            }
+        });
+    });*/
 
     return (
         <Sprite
-            image="https://pixijs.io/pixi-react/img/bunny.png"
+            image={punk}
             x={x}
             y={y}
             scale={2}
+            width={p.pW}
+            height={p.pH}
         />
     );
 };
