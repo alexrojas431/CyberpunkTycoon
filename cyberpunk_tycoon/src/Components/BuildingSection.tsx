@@ -150,10 +150,11 @@ export function BuildingSection(p: Props){
                     console.log("topRoomID + index: "+ (bottomID+i));*/
                     //console.log("Room Object for id " + (bottomID+i), roomList[(bottomID+i)]);
                     console.log("Buidling Subsection ID: " + p.id + ", Room Object for id " + (bottomID+i), roomList[(bottomID+i)])
+
                     return (
                         <Room
                             key={roomList[(bottomID+i)].id}
-                            roomObject={roomList[(bottomID+i)]}
+                            roomObject={roomList[(bottomID+i)] as any}
                             rW={roomWidth}
                             rX={r.x}
                             rH={roomHeight}

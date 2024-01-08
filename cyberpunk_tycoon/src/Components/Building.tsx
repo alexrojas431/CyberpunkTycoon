@@ -18,16 +18,16 @@ export function Building(){
     //This atom holds dimensons info needed for Room component
     const [buildingList, setBuildingList] = useAtom(buildingListAtom);
     const [buildingIDCounter, setBuildingIDCounter] = useAtom(buildingIDCounterAtom);
-    const [floor, setFloor] = useState<number>(100);
+    const [floor, setFloor] = useState<number>(700);
     
-    const startShape = {x: 1200, y: 100 };
-    const maxLimits = {x: 200, y: -10000 };
+    const startShape = {x: 1400, y: 700 };
+    const maxLimits = {x: 400, y: -10000 };
     let buildingShape = startShape;
 
     const bButton = useCallback((g: PIXI.Graphics) => {
         g.clear();
         g.beginFill(0x1273DE);
-        g.drawRect(0, 600, 100, 100);
+        g.drawRect(0, 1200, 100, 100);
         g.endFill();
     },[])
 
@@ -38,29 +38,34 @@ export function Building(){
     };
     
     function makeBuilding() {
-        setBuildingIDCounter(incrementId(buildingIDCounter));
-        
-        if(buildingList.length != 0){
-            
-            const i = buildingList.length - 1;
-            buildingShape.y = floor;
-
-            if(buildingList[i].x != maxLimits.x){
-                buildingShape.x = buildingList[i].x - 500;
-            }
-            else{
-                buildingShape.y = buildingList[i].y - 600;
-                setFloor(buildingShape.y);
-            }
+        if(buildingIDCounter == 4){
+            console.log("end")
         }
+        else{
+            setBuildingIDCounter(incrementId(buildingIDCounter));
+            
+            if(buildingList.length != 0){
+                
+                const i = buildingList.length - 1;
+                buildingShape.y = floor;
 
-        addBuildingData({
-            id: buildingIDCounter,
-            bottomRoomID: -10,
-            topRoomID: -10,
-            x: buildingShape.x,
-            y: buildingShape.y,
-        });
+                if(buildingList[i].x != maxLimits.x){
+                    buildingShape.x = buildingList[i].x - 500;
+                }
+                else{
+                    buildingShape.y = buildingList[i].y - 600;
+                    setFloor(buildingShape.y);
+                }
+            }
+        
+            addBuildingData({
+                id: buildingIDCounter,
+                bottomRoomID: -10,
+                topRoomID: -10,
+                x: buildingShape.x,
+                y: buildingShape.y,
+            });
+        }
     };
 
     return(
@@ -80,7 +85,7 @@ export function Building(){
                 eventMode="static" //Makes it interactable
                 cursor="pointer" // Adds a hand on windows machine only
                 onclick={makeBuilding}
-                hitArea={new PIXI.Rectangle(0, 600, 100, 100)}
+                hitArea={new PIXI.Rectangle(0, 1200, 100, 100)}
             />
         </>
     )
