@@ -128,16 +128,16 @@ export function BuildingSection(p: Props){
             <Container x={p.bX} y={p.bY} eventMode="static" cursor="pointer" onclick={giveBuildingID} >
                 <Graphics draw={drawBuilding}/>
                 {roomList.slice(bottomID, bottomID+2).map((r: roomInterface, i: number) => {
-                   /* console.log("----------\nRoomIDCounter at map: " + roomIDCounter)
-                    console.log("buildinglistID at map: " + p.id);
-                    console.log("roomlistID at map: " + r.id);
-                    console.log("index at map: " + i);
-                    console.log("bottomRoomID + index: "+ (buildingList[p.id].bottomRoomID+i));
-                    console.log("topRoomID + index: "+ (bottomID+i));*/
+                    //console.log("----------\nRoomIDCounter at map: " + roomIDCounter)
+                    //console.log("buildinglistID at map: " + p.id);
+                    //console.log("roomlistID at map: " + r.id);
+                    //console.log("index at map: " + i);
+                    //console.log("bottomRoomID + index: "+ (buildingList[p.id].bottomRoomID+i));
+                    //console.log("topRoomID + index: "+ (bottomID+i));
                     return (
                         <Room
                             key={roomList[(bottomID+i)].id}
-                            roomObject={roomList[(bottomID+i)]}
+                            roomObject={roomList[(bottomID+i)] as any}
                             rW={roomWidth}
                             rX={r.x}
                             rH={roomHeight}

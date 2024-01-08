@@ -7,9 +7,7 @@ export function TopUI(){
     const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
 
     return(
-        <span className = "topUI">
-            this is topui
-            <div className= "topStick">
+            <span className= "topStick">
                 This is Topstick
                 <span className="moneyCounter">
                     Profit: {totalProfit}
@@ -23,8 +21,7 @@ export function TopUI(){
                 <span className="morale">
                     Worker Morale
                 </span>
-            </div>
-        </span>
+            </span>
     )
 }
 

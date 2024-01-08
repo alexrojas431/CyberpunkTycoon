@@ -47,23 +47,25 @@ export function MainScreen(){
         sprite.data = null;
     }
 */
+
+    const stageWidth = 2000;
+    const stageHeight = 1500;
+
     return (
         <div>
             <TopUI/> 
             <Stage 
-                width={window.innerWidth}
-                height={window.innerHeight}
+                width={stageWidth}
+                height={stageHeight}
                 options={{backgroundColor:0xff6699,backgroundAlpha: 1}}
             >
-                <Viewport width={window.innerWidth} height={window.innerHeight}>
-                    <Sprite
-                        image="https://pixijs.io/pixi-react/img/bunny.png"
-                        x={400}
-                        y={270}
-                    />
-                    <Building/>
-                    <Ground/>
-                </Viewport>
+                <Sprite
+                    image="https://pixijs.io/pixi-react/img/bunny.png"
+                    x={400}
+                    y={270}
+                />
+                <Building/>
+                <Ground width={stageWidth}/>
             </Stage>
         </div>
     );

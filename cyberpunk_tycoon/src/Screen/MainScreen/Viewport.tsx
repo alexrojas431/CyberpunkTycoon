@@ -2,6 +2,7 @@ import React from "react";
 import * as PIXI from "pixi.js";
 import { Viewport as PixiViewport } from "pixi-viewport";
 import { PixiComponent, useApp } from "@pixi/react";
+//import { PixiComponent } from "@inlet/react-pixi";
 /*
 export interface ViewportProps {
   width: number;
@@ -51,6 +52,7 @@ export function Viewport(p: Props) {
         create: (p: PixiComponentViewportProps) => {
                 const events = new PIXI.EventSystem(p.app.renderer);
                 events.domElement = p.app.renderer.view as any;
+                console.log("doodlebop");
                 const viewport: any = new PixiViewport({
                     screenWidth: p.width,
                     screenHeight: p.height,
