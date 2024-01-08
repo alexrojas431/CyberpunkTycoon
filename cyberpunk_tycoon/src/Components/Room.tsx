@@ -47,10 +47,10 @@ export function Room(p:Props){
     useEffect(() => {
         const roomProfitInterval = setInterval(() => {
             if(p.roomObject.numOfEmployees > 0) { // If one or more employees are in the room
-                console.log("Adding Profit from Rooms!");
+                //console.log("Adding Profit from Rooms!");
                 let roomProfit = 0;
                 roomProfit += roomSelectors.getRoomIncome(p.roomObject.id)(p.roomObject,1);
-                console.log("Adding " + roomProfit + " to Profit from Rooms!");
+                //console.log("Adding " + roomProfit + " to Profit from Rooms!");
                 setTotalProfit(profit => profit + roomProfit);
             }
         }, roomRevenueTimer.current);
@@ -62,10 +62,10 @@ export function Room(p:Props){
 
     useEffect(() => {
         const roomRentInterval = setInterval(() => {
-            console.log("Removing Profit for Room rent!");
+            //console.log("Removing Profit for Room rent!");
             let roomRent = 0;
             roomRent += roomSelectors.getRoomMaintance(p.roomObject.id)(p.roomObject);
-            console.log("Removing " + roomRent + " from Profit because of room rent!");
+            //console.log("Removing " + roomRent + " from Profit because of room rent!");
             setTotalProfit(profit => profit - roomRent);
         }, roomRentTimer.current);
 
@@ -78,7 +78,7 @@ export function Room(p:Props){
         console.log("Room ID from Room Component: " + p.roomObject.id)
     }
 
-    function renderSprites(){
+    const renderSprites = () => {
         let sprites: any[] = [];
         //let spritePostion = [false, false, false, false, false, false]
         for(let positionI = 0; positionI < p.roomObject.numOfEmployees; positionI++) {

@@ -31,7 +31,6 @@ export function BuildingSection(p: Props){
     const [roomIDCounter, setRoomIDCounter] = useAtom(roomIDCounterAtom);
     const [topRoomExists, setTopRoomExists] = useState<boolean>(false);
     const [bottomRoomExists, setBottomRoomExists] = useState<boolean>(false);
-    const [totalEmployees, setTotalEmployees] = useAtom(totalEmployeesAtom);
 
     const buildingWidth = 500;
     const buildingHeight = 600;
@@ -56,14 +55,6 @@ export function BuildingSection(p: Props){
     const addRoom = (newRoom: any) => {
         setRoomList((prevList: any) => [...prevList, newRoom]);
     };
-
-    const getTotalEmployeesInRooms = () => { // change with room selector function instead
-        let totalEmployeesInRooms = 0;
-        roomList.forEach(room => {
-            totalEmployeesInRooms += room.numOfEmployees;
-        });
-        return totalEmployeesInRooms;
-    }
 
     const rButton = useCallback((g:pixiGraphics) => {
         g.clear();
@@ -163,6 +154,8 @@ export function BuildingSection(p: Props){
                     console.log("index at map: " + i);
                     console.log("bottomRoomID + index: "+ (buildingList[p.id].bottomRoomID+i));
                     console.log("topRoomID + index: "+ (bottomID+i));*/
+                    //console.log("Room Object for id " + (bottomID+i), roomList[(bottomID+i)]);
+                    console.log("Buidling Subsection ID: " + p.id + ", Room Object for id " + (bottomID+i), roomList[(bottomID+i)])
                     return (
                         <Room
                             key={roomList[(bottomID+i)].id}
