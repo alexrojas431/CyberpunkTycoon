@@ -1,4 +1,5 @@
 export interface Room {
+    //[x: string]: any;
     id: number;
     x: number;
     y: number;
@@ -10,4 +11,6 @@ export interface Room {
     baseMaintanceModifier: number;
     baseTimeTaskCompletion: number;
     taskComplete: boolean;
+    //globalX: number;
+    //globalY: number;
 };

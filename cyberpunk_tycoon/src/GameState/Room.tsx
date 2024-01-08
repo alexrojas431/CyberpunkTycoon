@@ -1,4 +1,4 @@
-import { atom } from 'jotai';
+import { atom, useAtom } from 'jotai';
 import { Room } from './../interface/Room';
 
 export const roomsListAtom = atom<Room[]>([]);
@@ -14,4 +14,11 @@ export const roomSelectors = {
   // Room Income will come in once the task is completed on customer. 
   // Income will increase based on upgrade level of room
   getRoomIncome: (id: number) => (state: Room, baseIncome: number) => baseIncome * (state.baseIncome * state.upgradeLevel),
+  getTotalEmployeesInRooms: (state: Room[]) => {
+    let totalEmployeesInRooms = 0;
+    state.forEach(room => {
+        totalEmployeesInRooms += room.numOfEmployees;
+    });
+    return totalEmployeesInRooms;
+}
 };
