@@ -1,4 +1,4 @@
-import { Container, Graphics } from "@pixi/react";
+import { Container, Graphics, Sprite } from "@pixi/react";
 import { useState, useEffect, useRef, useCallback} from "react";
 import { Graphics as pixiGraphics } from "pixi.js";
 import { Room as roomInterface } from "../interface/Room";
@@ -7,6 +7,7 @@ import { useAtom } from "jotai";
 import { roomSelectors } from "./../GameState/Room";
 import { People } from "./People";
 import { roomsListAtom } from "../GameState/Room";
+import room from "./room.png"
 
 interface Props{
     readonly roomObject: roomInterface;
@@ -25,24 +26,10 @@ export function Room(p:Props){
     const roomRentTimer = useRef(15*second);
     //const [roomList, setRoomList] = useAtom(roomsListAtom);
 
-    const employeeSpriteHeight = 85;
-    const employeeSpriteWidth = 60;
+    const employeeSpriteHeight = 120;
+    const employeeSpriteWidth = 85;
     const employeeSpriteXCoor = p.rX+employeeSpriteWidth/2;
     const employeeSpriteYCoor = p.rY+p.rH-employeeSpriteHeight;
-
-    const drawRoom = useCallback((g:pixiGraphics) => {
-        g.clear();
-        g.beginFill(0x6600ff);
-        console.log("Coordinates:", p.rX, p.rY, p.rW, p.rH)
-        g.drawRect(p.rX, p.rY, p.rW, p.rH);
-        g.endFill();
-        /*console.log(roomList);
-        let roomListCopy = roomList
-        let index = roomListCopy.findIndex(room => room.id === p.roomObject.id)
-        console.log(g);
-        console.log("Corrdinatesssssss: ", g.toGlobal(g.getGlobalPosition()))
-        roomListCopy[index] = {...roomListCopy[index], globalX: g.getGlobalPosition().x, globalY: g.getGlobalPosition().y};*/
-    },[]);
 
     useEffect(() => {
         const roomProfitInterval = setInterval(() => {
@@ -87,7 +74,7 @@ export function Room(p:Props){
                 <People 
                     key={"spite"+positionI}
                     pX={employeeSpriteXCoor + (60 * positionI)} 
-                    pY={employeeSpriteYCoor} 
+                    pY={employeeSpriteYCoor - 30} 
                     pW={employeeSpriteWidth} 
                     pH={employeeSpriteHeight}
                 />
@@ -101,7 +88,7 @@ export function Room(p:Props){
 
     return(
         <Container eventMode="static" cursor="pointer" onclick={giveRoomID}>
-            <Graphics draw={drawRoom}/>
+            <Sprite image={room} x={p.rX} y={p.rY} width={p.rW} height={p.rH}/>
             { renderSprites() }
         </Container>
     )

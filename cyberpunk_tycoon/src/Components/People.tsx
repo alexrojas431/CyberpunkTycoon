@@ -1,8 +1,10 @@
-import { Sprite, useTick } from "@pixi/react";
-import { useState } from "react";
+import { useApp, useTick, AnimatedSprite, Sprite } from "@pixi/react";
+import { useState, useEffect } from "react";
 import { roomsListAtom } from "../GameState/Room";
-import { useAtom } from "jotai";
+import { useAtom} from "jotai";
+import * as PIXI from "pixi.js";
 import { hitTest } from "../Utils/Utils";
+import punk from './punk.png'
 
 /**
  * People.tsx
@@ -143,7 +145,7 @@ export function People(p:Props){
 
     return (
         <Sprite
-            image="https://pixijs.io/pixi-react/img/bunny.png"
+            image={punk}
             x={x}
             y={y}
             scale={2}
