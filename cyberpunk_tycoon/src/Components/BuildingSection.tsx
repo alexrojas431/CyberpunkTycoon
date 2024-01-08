@@ -1,4 +1,4 @@
-import { Container, Graphics, useApp } from "@pixi/react";
+import { Container, Graphics, useApp, Sprite } from "@pixi/react";
 import { useCallback, useState } from "react";
 import { Graphics as pixiGraphics } from "pixi.js";
 import { Room } from "./Room";
@@ -8,6 +8,7 @@ import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from 
 import { Room as roomInterface } from '../interface/Room';
 import { buildingListAtom } from "../GameState/BuildingState";
 import { totalEmployees as totalEmployeesAtom } from "../GameState/Company";
+import building from "./building.png"
 
 /**
  * BuildingSection.tsx
@@ -60,13 +61,6 @@ export function BuildingSection(p: Props){
         g.clear();
         g.beginFill(0x8c3b0c);
         g.drawRect(p.bX, p.bY, 20, 20);
-        g.endFill();
-    },[])
- 
-    const drawBuilding = useCallback((g: pixiGraphics) => {
-        g.clear();
-        g.beginFill(0xffffff);
-        g.drawRect(buildingXCoordinate, buildingYCoordinate, buildingWidth, buildingHeight);
         g.endFill();
     },[])
 
@@ -146,7 +140,7 @@ export function BuildingSection(p: Props){
     return(
         <Container>
             <Container x={p.bX} y={p.bY} eventMode="static" cursor="pointer" onclick={giveBuildingID} >
-                <Graphics draw={drawBuilding}/>
+                <Sprite tint={"0x364E50"} image={building} x={buildingXCoordinate} y={buildingYCoordinate} width={buildingWidth} height={buildingHeight} />
                 {roomList.slice(bottomID, bottomID+2).map((r: roomInterface, i: number) => {
                    /* console.log("----------\nRoomIDCounter at map: " + roomIDCounter)
                     console.log("buildinglistID at map: " + p.id);
