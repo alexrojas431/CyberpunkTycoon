@@ -1,10 +1,10 @@
 import { Stage, Sprite, useApp } from "@pixi/react";
 import * as PIXI from "pixi.js";
-import { Ground } from "../../Components/Ground";
+import { Ground } from "./Ground";
 import { Building } from "../../Components/Building";
-import { TopUI } from "../../Components/TopUI"
-import "./MainScreen.css";
-import {Viewport} from "./Viewport";
+import { TopUI } from "./TopUI"
+import "./CSS/MainScreen.css";
+import { Viewport } from "./Viewport";
 import { People } from "../../Components/People";
 
 /**

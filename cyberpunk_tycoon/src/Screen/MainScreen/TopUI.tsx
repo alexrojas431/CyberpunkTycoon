@@ -1,10 +1,10 @@
-import "./TopUI.css";
-import { totalProfitAtom } from "./../GameState/Economy";
+import "./CSS/TopUI.css";
+import { totalProfitAtom } from "../../GameState/EconomyState";
 import { useAtom } from "jotai";
-import { totalEmployees as totalEmployeesAtom } from "../GameState/Company";
-import { roomsListAtom } from "../GameState/Room";
+import { totalEmployees as totalEmployeesAtom } from "../../GameState/CompanyState";
+import { roomsListAtom } from "../../GameState/RoomState";
 import { useEffect, useRef } from "react";
-import { roomSelectors } from "./../GameState/Room"
+import { roomSelectors } from "../../GameState/RoomState"
 
 export function TopUI(){
 

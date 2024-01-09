@@ -1,5 +1,5 @@
 //import { UpdateStartState } from "../../GameState/UpdateState/UpdateStartState"
-import logo from "./templogo.png"
+import logo from "../../Assets/templogo.png"
 //import { $state } from "../../GameState/StartState"
 
 export function StartScreen(){

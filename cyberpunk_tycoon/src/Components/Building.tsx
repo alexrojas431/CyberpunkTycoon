@@ -3,7 +3,7 @@ import * as PIXI from "pixi.js";
 import { Graphics } from "@pixi/react";
 import { useAtom } from "jotai";
 import { buildingIDCounterAtom, buildingListAtom } from "../GameState/BuildingState";
-import { BuildingInterface } from "../interface/BuildingInterface";
+import { BuildingInterface } from "../Interface/BuildingInterface";
 import { BuildingSection } from "./BuildingSection";
 
 /**

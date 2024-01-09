@@ -2,15 +2,15 @@ import { Container, Graphics, Sprite } from "@pixi/react";
 import { useState, useEffect, useRef, useCallback} from "react";
 import { Graphics as pixiGraphics } from "pixi.js";
 import { useAtom } from "jotai";
-import { Room as roomInterface } from "../interface/Room";
-import { totalProfitAtom } from "./../GameState/Economy";
-import { roomSelectors } from "./../GameState/Room";
+import { RoomInterface } from "../Interface/RoomInterface";
+import { totalProfitAtom } from "../GameState/EconomyState";
+import { roomSelectors } from "../GameState/RoomState";
 import { People } from "./People";
-import { roomsListAtom } from "../GameState/Room";
-import room from "./room.png"
+import { roomsListAtom } from "../GameState/RoomState";
+import room from "../Assets/room.png"
 
 interface Props{
-    readonly roomObject: roomInterface;
+    readonly roomObject: RoomInterface;
     readonly rW: number;
     readonly rH: number;
     readonly rX: number;

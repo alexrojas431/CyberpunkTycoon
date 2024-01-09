@@ -4,11 +4,11 @@ import * as PIXI from "pixi.js";
 import { Graphics as pixiGraphics } from "pixi.js";
 import { useAtom } from "jotai";
 import { Room } from "./Room";
-import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from "../GameState/Room";
-import { Room as roomInterface } from '../interface/Room';
+import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from "../GameState/RoomState";
+import { RoomInterface as roomInterface } from '../Interface/RoomInterface';
 import { buildingListAtom } from "../GameState/BuildingState";
-import { totalEmployees as totalEmployeesAtom } from "../GameState/Company";
-import building from "./building.png"
+import { totalEmployees as totalEmployeesAtom } from "../GameState/CompanyState";
+import building from "../Assets/building.png"
 
 /**
  * BuildingSection.tsx

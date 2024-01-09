@@ -1,4 +1,4 @@
-export interface Room {
+export interface RoomInterface {
     //[x: string]: any;
     id: number;
     x: number;
