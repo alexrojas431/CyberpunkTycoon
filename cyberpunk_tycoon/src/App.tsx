@@ -1,8 +1,6 @@
 //import { $stage } from './GameState/StartState';
 import { StartScreen } from './Screen/StartScreen/StartScreen';
 import { MainScreen } from './Screen/MainScreen/MainScreen';
-import { useAtomValue } from 'jotai';
-import MoneySystem from './ProfitSystem';
 
 /**
  * This should switch between multiple different visual scenes
@@ -19,9 +17,6 @@ let stage = "mainGameplay";
     <div>
         {stage === "startScreen" && <StartScreen />}
         {stage === "mainGameplay" && <MainScreen />}
-      <div>
-        {/*<MoneySystem/>*/}
-      </div>
     </div>
   );
 }

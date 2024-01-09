@@ -1,12 +1,10 @@
-import { Container, Graphics, Sprite } from "@pixi/react";
-import { useState, useEffect, useRef, useCallback} from "react";
-import { Graphics as pixiGraphics } from "pixi.js";
+import { Container, Sprite } from "@pixi/react";
+import { useEffect, useRef } from "react";
 import { useAtom } from "jotai";
 import { RoomInterface } from "../Interface/RoomInterface";
 import { totalProfitAtom } from "../GameState/EconomyState";
 import { roomSelectors } from "../GameState/RoomState";
 import { People } from "./People";
-import { roomsListAtom } from "../GameState/RoomState";
 import room from "../Assets/room.png"
 
 interface Props{
@@ -17,15 +15,12 @@ interface Props{
     readonly rY: number;
 }
 
-
 export function Room(p: Props){
 
     const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
-    //const [spritePosition, setSprintPosition] = [false, false, false, false, false, false];
     const second = 1000;
     const roomRevenueTimer = useRef(p.roomObject.baseTimeTaskCompletion*second);
     const roomRentTimer = useRef(15*second);
-    //const [roomList, setRoomList] = useAtom(roomsListAtom);
     const employeeSpriteHeight = 120;
     const employeeSpriteWidth = 85;
     const employeeSpriteXCoor = p.rX+employeeSpriteWidth/2;
@@ -33,10 +28,10 @@ export function Room(p: Props){
 
     useEffect(() => {
         const roomProfitInterval = setInterval(() => {
-            if(p.roomObject.numOfEmployees > 0) { // If one or more employees are in the room
+            // If one or more employees are in the room
+            if(p.roomObject.numOfEmployees > 0) {
                 let roomProfit = 0;
                 roomProfit += roomSelectors.getRoomIncome(p.roomObject.id)(p.roomObject,1);
-                //console.log("Adding " + roomProfit + " to Profit from Rooms!");
                 setTotalProfit(profit => profit + roomProfit);
             }
         }, roomRevenueTimer.current);
@@ -48,10 +43,8 @@ export function Room(p: Props){
 
     useEffect(() => {
         const roomRentInterval = setInterval(() => {
-            //console.log("Removing Profit for Room rent!");
             let roomRent = 0;
             roomRent += roomSelectors.getRoomMaintance(p.roomObject.id)(p.roomObject);
-            //console.log("Removing " + roomRent + " from Profit because of room rent!");
             setTotalProfit(profit => profit - roomRent);
         }, roomRentTimer.current);
 
@@ -66,7 +59,6 @@ export function Room(p: Props){
 
     const renderSprites = () => {
         let sprites: any[] = [];
-        //let spritePostion = [false, false, false, false, false, false]
         for(let positionI = 0; positionI < p.roomObject.numOfEmployees; positionI++) {
             sprites = [
                 ...sprites, 
@@ -78,7 +70,6 @@ export function Room(p: Props){
                     pH={employeeSpriteHeight}
                 />
             ]
-            //spritePostion[positionI] = true;
         }
         return sprites;
     }

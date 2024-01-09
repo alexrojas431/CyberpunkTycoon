@@ -1,9 +1,7 @@
-import { useApp, useTick, AnimatedSprite, Sprite } from "@pixi/react";
-import { useState, useEffect } from "react";
+import { Sprite } from "@pixi/react";
+import { useState } from "react";
+import { useAtom } from "jotai";
 import { roomsListAtom } from "../GameState/RoomState";
-import { useAtom} from "jotai";
-import * as PIXI from "pixi.js";
-import { hitTest } from "../Utils/Utils";
 import punk from '../Assets/punk.png'
 
 /**
