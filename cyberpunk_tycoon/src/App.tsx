@@ -1,6 +1,8 @@
 //import { $stage } from './GameState/StartState';
 import { StartScreen } from './Screen/StartScreen/StartScreen';
 import { MainScreen } from './Screen/MainScreen/MainScreen';
+import { gameStateAtom } from './GameState/StartState';
+import { useAtom } from 'jotai';
 
 /**
  * This should switch between multiple different visual scenes
@@ -11,7 +13,10 @@ import { MainScreen } from './Screen/MainScreen/MainScreen';
 
 export function App() {
   
-let stage = "mainGameplay";
+  //let stage = "mainGameplay";
+
+  const [test] = useAtom(gameStateAtom); 
+  const stage = test.player.stage;
 
   return (
     <div>

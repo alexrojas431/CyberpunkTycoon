@@ -77,8 +77,18 @@ export function Room(p: Props){
     // Use Room List Atom and set global X and Y using graphic1 here
 
     return(
-        <Container eventMode="static" cursor="pointer" onclick={giveRoomID}>
-            <Sprite image={room} x={p.rX} y={p.rY} width={p.rW} height={p.rH}/>
+        <Container
+            eventMode="static"
+            cursor="pointer"
+            onclick={giveRoomID}
+        >
+            <Sprite
+                image={room}
+                x={p.rX}
+                y={p.rY}
+                width={p.rW}
+                height={p.rH}
+            />
             { renderSprites() }
         </Container>
     )
