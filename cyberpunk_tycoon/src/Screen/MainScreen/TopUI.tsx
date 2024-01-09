@@ -1,9 +1,9 @@
-import "./CSS/TopUI.css";
-import { totalProfitAtom } from "../../GameState/EconomyState";
+import { useEffect, useRef } from "react";
 import { useAtom } from "jotai";
+import { totalProfitAtom } from "../../GameState/EconomyState";
 import { totalEmployees as totalEmployeesAtom } from "../../GameState/CompanyState";
 import { roomsListAtom } from "../../GameState/RoomState";
-import { useEffect, useRef } from "react";
+import "./CSS/TopUI.css";
 
 export function TopUI(){
 
@@ -25,7 +25,7 @@ export function TopUI(){
     }, [totalEmployees]);
 
     const addEmployee = () => {
-        if(totalEmployees < roomList.length*2 && roomList.length!=0) {
+        if(totalEmployees < roomList.length*2 && roomList.length !== 0){
             setTotalEmployees(totalEmployees + 1);
             let roomListCopy = roomList;
             let index = roomListCopy.findIndex(room => room.numOfEmployees < 2);

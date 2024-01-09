@@ -65,11 +65,11 @@ export function BuildingSection(p: Props){
 
     const updateBuildingRoomID = (buildingID: number, roomID: number) => {
         let newBuildingList = buildingList.map(b =>{
-            if(b.id == buildingID){
-                if(b.bottomRoomID == -10){
+            if(b.id === buildingID){
+                if(b.bottomRoomID === -10){
                     b = {...b, bottomRoomID: roomID};
                 }
-                else if(b.topRoomID == -10){
+                else if(b.topRoomID === -10){
                     b = {...b, topRoomID: roomID};
                 }
             }
@@ -103,7 +103,7 @@ export function BuildingSection(p: Props){
 
             let numOfEmployees = 0;
 
-            if(roomSelectors.getTotalEmployeesInRooms(roomList) == 0) {
+            if(roomSelectors.getTotalEmployeesInRooms(roomList) === 0) {
                 console.log("There are no employees in any room!")
                 numOfEmployees = 2;
             }

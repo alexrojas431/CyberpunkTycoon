@@ -15,8 +15,8 @@ export function App() {
   
   //let stage = "mainGameplay";
 
-  const [test] = useAtom(gameStateAtom); 
-  const stage = test.player.stage;
+  const [gameState] = useAtom(gameStateAtom); 
+  const stage = gameState.player.stage;
 
   return (
     <div>

@@ -38,18 +38,18 @@ export function Building(){
     };
     
     function makeBuilding() {
-        if(buildingIDCounter == 4){
+        if(buildingIDCounter === 4){
             console.log("end")
         }
         else{
             setBuildingIDCounter(incrementId(buildingIDCounter));
             
-            if(buildingList.length != 0){
+            if(buildingList.length !== 0){
                 
                 const i = buildingList.length - 1;
                 buildingShape.y = floor;
 
-                if(buildingList[i].x != maxLimits.x){
+                if(buildingList[i].x !== maxLimits.x){
                     buildingShape.x = buildingList[i].x - 500;
                 }
                 else{

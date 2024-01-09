@@ -1,7 +1,7 @@
 import { Sprite } from "@pixi/react";
 import { useState } from "react";
-import { useAtom } from "jotai";
-import { roomsListAtom } from "../GameState/RoomState";
+//import { useAtom } from "jotai";
+//import { roomsListAtom } from "../GameState/RoomState";
 import punk from '../Assets/punk.png'
 
 /**
@@ -10,7 +10,7 @@ import punk from '../Assets/punk.png'
  * Handle Movement of people from nowhere to one room
  *  
 */
-
+/*
 function keyboard(value:any) {
     const key = {
         value: value, 
@@ -61,7 +61,7 @@ function keyboard(value:any) {
     
     return key;
   }
-
+*/
 interface Props{
     readonly pX: number;
     readonly pY: number;
@@ -73,13 +73,13 @@ export function People(p:Props){
 
     const [x, setX] = useState(p.pX)
     const [y, setY] = useState(p.pY)
+/*
     const [roomsList, setRoomsList] = useAtom(roomsListAtom);
-
     const moveRight = (x: number) => x+10;
     const moveLeft = (x: number) => x-10;
     const moveUp = (y: number) => y-10;
     const moveDown = (y: number) => y+10;
-    
+*/  
     /*const moveToRoom = (sx: number, sy: number, x: number, y: number) =>{
         // Calculate direction towards player
         let toX = x - sx;
