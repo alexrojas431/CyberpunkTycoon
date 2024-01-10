@@ -1,4 +1,3 @@
-//import { $stage } from './GameState/StartState';
 import { StartScreen } from './Screen/StartScreen/StartScreen';
 import { MainScreen } from './Screen/MainScreen/MainScreen';
 import { gameStateAtom } from './GameState/StartState';
@@ -13,15 +12,12 @@ import { useAtom } from 'jotai';
 
 export function App() {
   
-  //let stage = "mainGameplay";
-
   const [gameState] = useAtom(gameStateAtom); 
-  const stage = gameState.player.stage;
 
   return (
     <div>
-        {stage === "startScreen" && <StartScreen />}
-        {stage === "mainGameplay" && <MainScreen />}
+        {gameState.player.stage === "startScreen" && <StartScreen />}
+        {gameState.player.stage === "mainGameplay" && <MainScreen />}
     </div>
   );
 }
