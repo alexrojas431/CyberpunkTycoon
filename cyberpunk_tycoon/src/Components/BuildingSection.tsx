@@ -151,9 +151,8 @@ export function BuildingSection(p: Props){
                     console.log("roomlistID at map: " + r.id);
                     console.log("index at map: " + i);
                     console.log("bottomRoomID + index: "+ (buildingList[p.id].bottomRoomID+i));
-                    console.log("topRoomID + index: "+ (bottomID+i));*/
-                    //console.log("Room Object for id " + (bottomID+i), roomList[(bottomID+i)]);
-                    /*
+                    console.log("topRoomID + index: "+ (bottomID+i));
+                    console.log("Room Object for id " + (bottomID+i), roomList[(bottomID+i)]);
                     console.log("Buidling Subsection ID: " + p.id
                         + ", Room Object for id " + (bottomID+i), roomList[(bottomID+i)])
                     */
