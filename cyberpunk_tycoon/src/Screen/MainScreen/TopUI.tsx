@@ -39,23 +39,15 @@ export function TopUI(){
     };
 
     return(
-        <span className= "topStick">
+        <div className= "topStick">
             <span className="moneyCounter">
                 Profit: {totalProfit}
             </span>
-            <span className="moneyRate">
-                Money Rate
-            </span>
-            <span className="satisf">
-                Customer Satisfaction
-            </span>
-            <span className="morale">
-                Worker Morale
-            </span>
+
             <div>
                 Total Employees: {totalEmployees}
-                <button onClick={() => {addEmployee()}}>Add Employee</button>
+                <button className="addEButton" onClick={() => {addEmployee()}}>Add Employee</button>
             </div>
-            </span>
+        </div>
     )
 }
