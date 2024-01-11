@@ -1,16 +1,10 @@
 import { atom } from "jotai"
-//import { GameState } from "./GameState"
+import { GameStateInterface } from "../Interface/GameStateInterface"
 
-export const $state = atom<{
-  ready: boolean
-}>({
-  ready: false
+export const gameStateAtom = atom<GameStateInterface>({
+  ready: false,
+  player:{
+    stage: "startScreen",
+    playerInfo:{ money: 0 }
+  }
 })
-
-export const $ready = atom((get) => get($state).ready)
-
-//export const $game = atom((get) => get($state).game)
-
-//export const $stage = atom((get) => get($game).stage)
-
-//export const $player = atom((get) => get($game).player)

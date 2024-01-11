@@ -1,14 +1,13 @@
-import { Container, Graphics, useApp, Sprite } from "@pixi/react";
+import { Container, Graphics, Sprite } from "@pixi/react";
 import { useCallback, useState } from "react";
 import * as PIXI from "pixi.js";
 import { Graphics as pixiGraphics } from "pixi.js";
 import { useAtom } from "jotai";
 import { Room } from "./Room";
-import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from "../GameState/Room";
-import { Room as roomInterface } from '../interface/Room';
+import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from "../GameState/RoomState";
+import { RoomInterface as roomInterface } from '../Interface/RoomInterface';
 import { buildingListAtom } from "../GameState/BuildingState";
-import { totalEmployees as totalEmployeesAtom } from "../GameState/Company";
-import building from "./building.png"
+import building from "../Assets/building.png"
 
 /**
  * BuildingSection.tsx
@@ -66,11 +65,11 @@ export function BuildingSection(p: Props){
 
     const updateBuildingRoomID = (buildingID: number, roomID: number) => {
         let newBuildingList = buildingList.map(b =>{
-            if(b.id == buildingID){
-                if(b.bottomRoomID == -10){
+            if(b.id === buildingID){
+                if(b.bottomRoomID === -10){
                     b = {...b, bottomRoomID: roomID};
                 }
-                else if(b.topRoomID == -10){
+                else if(b.topRoomID === -10){
                     b = {...b, topRoomID: roomID};
                 }
             }
@@ -104,7 +103,7 @@ export function BuildingSection(p: Props){
 
             let numOfEmployees = 0;
 
-            if(roomSelectors.getTotalEmployeesInRooms(roomList) == 0) {
+            if(roomSelectors.getTotalEmployeesInRooms(roomList) === 0) {
                 console.log("There are no employees in any room!")
                 numOfEmployees = 2;
             }
@@ -122,16 +121,6 @@ export function BuildingSection(p: Props){
                 baseTimeTaskCompletion: 3,
                 taskComplete: false,
             });
-            /*addRoom(
-                <Room
-                    key={0}
-                    roomObject={room}
-                    rW={roomWidth}
-                    rX={roomXCoordinate}
-                    rH={roomHeight}
-                    rY={roomYCoordinate}
-                />
-            );*/
         }
     };
   
@@ -139,18 +128,34 @@ export function BuildingSection(p: Props){
 
     return(
         <Container>
-            <Container x={p.bX} y={p.bY} eventMode="static" cursor="pointer" onclick={giveBuildingID} >
-                <Sprite tint={"0x364E50"} image={building} x={buildingXCoordinate} y={buildingYCoordinate} width={buildingWidth} height={buildingHeight} />
-                {roomList.slice(bottomID, bottomID+2).map((r: roomInterface, i: number) => {
+            <Container
+                x={p.bX}
+                y={p.bY}
+                eventMode="static"
+                cursor="pointer"
+                onclick={giveBuildingID}
+            >
+                <Sprite
+                    tint={"0x364E50"}
+                    image={building}
+                    x={buildingXCoordinate}
+                    y={buildingYCoordinate}
+                    width={buildingWidth}
+                    height={buildingHeight}
+                />
+                {roomList
+                 .slice(bottomID, bottomID+2)
+                 .map((r: roomInterface, i: number) => {
                    /* console.log("----------\nRoomIDCounter at map: " + roomIDCounter)
                     console.log("buildinglistID at map: " + p.id);
                     console.log("roomlistID at map: " + r.id);
                     console.log("index at map: " + i);
                     console.log("bottomRoomID + index: "+ (buildingList[p.id].bottomRoomID+i));
-                    console.log("topRoomID + index: "+ (bottomID+i));*/
-                    //console.log("Room Object for id " + (bottomID+i), roomList[(bottomID+i)]);
-                    console.log("Buidling Subsection ID: " + p.id + ", Room Object for id " + (bottomID+i), roomList[(bottomID+i)])
-
+                    console.log("topRoomID + index: "+ (bottomID+i));
+                    console.log("Room Object for id " + (bottomID+i), roomList[(bottomID+i)]);
+                    console.log("Buidling Subsection ID: " + p.id
+                        + ", Room Object for id " + (bottomID+i), roomList[(bottomID+i)])
+                    */
                     return (
                         <Room
                             key={roomList[(bottomID+i)].id}

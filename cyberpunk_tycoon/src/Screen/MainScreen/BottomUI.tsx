@@ -1,4 +1,4 @@
-import "./BottomUI.css";
+import "./CSS/BottomUI.css";
 
 export function BottomUI(){
     return(

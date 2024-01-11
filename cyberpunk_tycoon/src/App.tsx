@@ -1,8 +1,8 @@
-//import { $stage } from './GameState/StartState';
 import { StartScreen } from './Screen/StartScreen/StartScreen';
 import { MainScreen } from './Screen/MainScreen/MainScreen';
-import { useAtomValue } from 'jotai';
-import MoneySystem from './ProfitSystem';
+import { gameStateAtom } from './GameState/StartState';
+import { useAtom } from 'jotai';
+import { totalProfitAtom } from './GameState/EconomyState';
 
 /**
  * This should switch between multiple different visual scenes
@@ -13,15 +13,22 @@ import MoneySystem from './ProfitSystem';
 
 export function App() {
   
-let stage = "mainGameplay";
+  const [gameState] = useAtom(gameStateAtom); 
+  /*
+  const [totalProfit] = useAtom(totalProfitAtom); 
 
+  if(totalProfit <= 0){
+      console.log("GameOver");
+  }
+  else if(totalProfit >= 3000){
+      console.log("You win");
+  }
+  */
+ 
   return (
     <div>
-        {stage === "startScreen" && <StartScreen />}
-        {stage === "mainGameplay" && <MainScreen />}
-      <div>
-        {/*<MoneySystem/>*/}
-      </div>
+        {gameState.player.stage === "startScreen" && <StartScreen />}
+        {gameState.player.stage === "mainGameplay" && <MainScreen />}
     </div>
   );
 }
