@@ -1,8 +1,9 @@
-import { Stage } from "@pixi/react";
+import { Sprite, Stage } from "@pixi/react";
 import { Ground } from "./Ground";
 import { Building } from "../../Components/Building";
 import { TopUI } from "./TopUI"
 import "./CSS/MainScreen.css";
+import cyberpunkCity from "./../../Assets/cyberCity.png";
 import { Viewport } from "./Viewport";
 
 /**
@@ -24,8 +25,9 @@ export function MainScreen(){
             <Stage 
                 width={stageWidth}
                 height={stageHeight}
-                options={{backgroundColor:0xff6699,backgroundAlpha: 1}}
+                options={{backgroundAlpha: 1}}
             >
+                <Sprite image={cyberpunkCity} width={stageWidth} height={stageHeight}/>
                 <Building/>
                 <Ground width={stageWidth}/>
             </Stage>
