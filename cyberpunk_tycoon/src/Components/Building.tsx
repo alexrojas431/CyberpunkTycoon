@@ -38,7 +38,7 @@ export function Building(){
     };
     
     function makeBuilding() {
-        if(buildingIDCounter === 4){
+        if(buildingIDCounter === 6){
             console.log("end")
         }
         else{
@@ -77,6 +77,8 @@ export function Building(){
                         id={b.id}
                         bX={b.x}
                         bY={b.y}
+                        bRoomId={b.bottomRoomID}
+                        tRoomId={b.topRoomID}
                     />
                 );
             })}
