@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import * as PIXI from "pixi.js";
-import { Graphics } from "@pixi/react";
+import { Graphics, Text } from "@pixi/react";
 import { useAtom } from "jotai";
 import { buildingIDCounterAtom, buildingListAtom } from "../GameState/BuildingState";
 import { BuildingInterface } from "../Interface/BuildingInterface";
@@ -27,7 +27,7 @@ export function Building(){
     const bButton = useCallback((g: PIXI.Graphics) => {
         g.clear();
         g.beginFill(0x1273DE);
-        g.drawRect(0, 1200, 100, 100);
+        g.drawRoundedRect(0, 1200, 150, 90, 20);
         g.endFill();
     },[])
 
@@ -86,6 +86,12 @@ export function Building(){
                 cursor="pointer" // Adds a hand on windows machine only
                 onclick={makeBuilding}
                 hitArea={new PIXI.Rectangle(0, 1200, 100, 100)}
+            />
+            <Text text={"Create\nBuilding"}
+                x={0}
+                y={1200}
+                zIndex={1}
+                style={new PIXI.TextStyle({fontSize: 36, fill: 'white', fontWeight: 'bold' })}
             />
         </>
     )

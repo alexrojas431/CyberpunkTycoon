@@ -1,4 +1,4 @@
-import { Container, Graphics, Sprite } from "@pixi/react";
+import { Container, Graphics, PixiComponent, PixiFiber, Sprite, Text } from "@pixi/react";
 import { useCallback, useState } from "react";
 import * as PIXI from "pixi.js";
 import { Graphics as pixiGraphics } from "pixi.js";
@@ -59,7 +59,7 @@ export function BuildingSection(p: Props){
     const rButton = useCallback((g:pixiGraphics) => {
         g.clear();
         g.beginFill(0x8c3b0c);
-        g.drawRect(p.bX, p.bY, 20, 20);
+        g.drawRoundedRect(p.bX, p.bY, 120, 90, 20);
         g.endFill();
     },[])
 
@@ -127,7 +127,7 @@ export function BuildingSection(p: Props){
     const bottomID = buildingList[p.id].bottomRoomID;
 
     return(
-        <Container>
+        <Container sortableChildren={true}>
             <Container
                 x={p.bX}
                 y={p.bY}
@@ -168,12 +168,18 @@ export function BuildingSection(p: Props){
                     );
                 })}
             </Container>
+            <Text text={"Create\nRoom"}
+                x={p.bX}
+                y={p.bY}
+                zIndex={1}
+                style={new PIXI.TextStyle({fontSize: 36, fill: 'white', fontWeight: 'bold' })}
+            />
             <Graphics
                 draw={rButton}
                 eventMode="static"
                 cursor="pointer"
                 onclick={makeRoomInBuilding}
-                hitArea={new PIXI.Rectangle(p.bX, p.bY, 50, 50)}
+                hitArea={new PIXI.Rectangle(p.bX, p.bY, 100, 100)}
             />
         </Container>
     )
