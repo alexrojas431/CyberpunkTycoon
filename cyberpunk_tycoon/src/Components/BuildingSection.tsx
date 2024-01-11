@@ -8,6 +8,7 @@ import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from 
 import { RoomInterface as roomInterface } from '../Interface/RoomInterface';
 import { buildingListAtom } from "../GameState/BuildingState";
 import building from "../Assets/building.png"
+import { totalProfitAtom } from "../GameState/EconomyState";
 
 /**
  * BuildingSection.tsx
@@ -33,6 +34,7 @@ export function BuildingSection(p: Props){
     const [roomIDCounter, setRoomIDCounter] = useAtom(roomIDCounterAtom);
     const [topRoomExists, setTopRoomExists] = useState<boolean>(false);
     const [bottomRoomExists, setBottomRoomExists] = useState<boolean>(false);
+    const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
 
     const buildingWidth = 500;
     const buildingHeight = 600;
@@ -55,6 +57,7 @@ export function BuildingSection(p: Props){
     const incrementId = (id: number) => id+1;
 
     const addRoom = (newRoom: any) => {
+        setTotalProfit(() => totalProfit - 250)
         setRoomList((prevList: any) => [...prevList, newRoom]);
     };
 
@@ -109,7 +112,7 @@ export function BuildingSection(p: Props){
                 console.log("There are no employees in any room!")
                 numOfEmployees = 2;
             }
-            
+
             addRoom({
                 id: id,
                 x: roomXCoordinate,
@@ -119,7 +122,7 @@ export function BuildingSection(p: Props){
                 baseIncome: 15,
                 customerPresent: false,
                 numOfEmployees: numOfEmployees,
-                baseMaintanceModifier: 120,
+                baseMaintanceModifier: 60,
                 baseTimeTaskCompletion: 3,
                 taskComplete: false,
             });
