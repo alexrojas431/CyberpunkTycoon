@@ -4,3 +4,13 @@
     color: white;
     background-color: black;
 }
+
+p.instruct {
+    font-size: 5rem;
+}
+
+.startButton {
+    width: 100%;
+    height: 10rem;
+    font-size: 5rem;
+}

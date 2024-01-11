@@ -26,6 +26,7 @@ export function TopUI(){
 
     const addEmployee = () => {
         if(totalEmployees < roomList.length*2 && roomList.length !== 0){
+            setTotalProfit(profit => profit - 50);
             setTotalEmployees(totalEmployees + 1);
             let roomListCopy = roomList;
             let index = roomListCopy.findIndex(room => room.numOfEmployees < 2);

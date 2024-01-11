@@ -20,11 +20,14 @@ export function StartScreen(){
     return(
         <div className="startScreen">
             <img src={logo} alt="temp" height={"100px"}/>
-            <p>
+            <p className="instruct">
                 Instructions:<br/>
-                Currently you can make buildings and buy 2 rooms within those buildings.
+                There is no goal! <br/><br/>
+                The purpose of this game is to build buildings which can house two rooms. Build more rooms to make more profit at your company. 
+                <br/><br/>Manage your COOPERATIVE employees as they are needed to generate profit in the room. More employees in a room, less time it takes to make profit! 
+                <br/><br/>Have fun!
             </p>
-            <button type="button" onClick={updateStage}>
+            <button type="button" className="startButton" onClick={updateStage}>
                 Start Game
             </button>
         </div>

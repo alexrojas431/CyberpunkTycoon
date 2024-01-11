@@ -8,6 +8,7 @@ import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from 
 import { RoomInterface as roomInterface } from '../Interface/RoomInterface';
 import { buildingListAtom } from "../GameState/BuildingState";
 import building from "../Assets/building.png"
+import { totalProfitAtom } from "../GameState/EconomyState";
 
 /**
  * BuildingSection.tsx
@@ -21,6 +22,8 @@ interface Props{
     readonly id: number;
     readonly bX: number;
     readonly bY: number;
+    readonly bRoomId: number;
+    readonly tRoomId: number;
 }
 
 export function BuildingSection(p: Props){
@@ -31,6 +34,7 @@ export function BuildingSection(p: Props){
     const [roomIDCounter, setRoomIDCounter] = useAtom(roomIDCounterAtom);
     const [topRoomExists, setTopRoomExists] = useState<boolean>(false);
     const [bottomRoomExists, setBottomRoomExists] = useState<boolean>(false);
+    const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
 
     const buildingWidth = 500;
     const buildingHeight = 600;
@@ -53,6 +57,7 @@ export function BuildingSection(p: Props){
     const incrementId = (id: number) => id+1;
 
     const addRoom = (newRoom: any) => {
+        setTotalProfit(() => totalProfit - 250)
         setRoomList((prevList: any) => [...prevList, newRoom]);
     };
 
@@ -107,7 +112,7 @@ export function BuildingSection(p: Props){
                 console.log("There are no employees in any room!")
                 numOfEmployees = 2;
             }
-            
+
             addRoom({
                 id: id,
                 x: roomXCoordinate,
@@ -117,14 +122,12 @@ export function BuildingSection(p: Props){
                 baseIncome: 15,
                 customerPresent: false,
                 numOfEmployees: numOfEmployees,
-                baseMaintanceModifier: 120,
+                baseMaintanceModifier: 60,
                 baseTimeTaskCompletion: 3,
                 taskComplete: false,
             });
         }
     };
-  
-    const bottomID = buildingList[p.id].bottomRoomID;
 
     return(
         <Container sortableChildren={true}>
@@ -143,30 +146,28 @@ export function BuildingSection(p: Props){
                     width={buildingWidth}
                     height={buildingHeight}
                 />
-                {roomList
-                 .slice(bottomID, bottomID+2)
-                 .map((r: roomInterface, i: number) => {
-                   /* console.log("----------\nRoomIDCounter at map: " + roomIDCounter)
-                    console.log("buildinglistID at map: " + p.id);
-                    console.log("roomlistID at map: " + r.id);
-                    console.log("index at map: " + i);
-                    console.log("bottomRoomID + index: "+ (buildingList[p.id].bottomRoomID+i));
-                    console.log("topRoomID + index: "+ (bottomID+i));
-                    console.log("Room Object for id " + (bottomID+i), roomList[(bottomID+i)]);
-                    console.log("Buidling Subsection ID: " + p.id
-                        + ", Room Object for id " + (bottomID+i), roomList[(bottomID+i)])
-                    */
-                    return (
-                        <Room
-                            key={roomList[(bottomID+i)].id}
-                            roomObject={roomList[(bottomID+i)] as any}
-                            rW={roomWidth}
-                            rX={r.x}
-                            rH={roomHeight}
-                            rY={r.y}
-                        />
-                    );
-                })}
+                {p.bRoomId !== -10 ?
+                    <Room
+                        key={roomList[p.bRoomId].id}
+                        roomObject={roomList[p.bRoomId] as any}
+                        rW={roomWidth}
+                        rX={roomList[p.bRoomId].x}
+                        rH={roomHeight}
+                        rY={roomList[p.bRoomId].y}
+                    />
+                    : <></>
+                }
+                {p.tRoomId !== -10 ?
+                    <Room
+                        key={roomList[p.tRoomId].id}
+                        roomObject={roomList[p.tRoomId] as any}
+                        rW={roomWidth}
+                        rX={roomList[p.tRoomId].x}
+                        rH={roomHeight}
+                        rY={roomList[p.tRoomId].y}
+                    />
+                    : <></>
+                }
             </Container>
             <Text text={"Create\nRoom"}
                 x={p.bX}

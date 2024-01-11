@@ -19,7 +19,7 @@ export function Room(p: Props){
 
     const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
     const second = 1000;
-    const roomRevenueTimer = useRef(p.roomObject.baseTimeTaskCompletion*second);
+    const roomRevenueTimer = useRef((p.roomObject.baseTimeTaskCompletion*second)/((p.roomObject.numOfEmployees)+1));
     const roomRentTimer = useRef(15*second);
     const employeeSpriteHeight = 120;
     const employeeSpriteWidth = 85;

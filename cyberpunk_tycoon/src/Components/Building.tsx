@@ -5,6 +5,7 @@ import { useAtom } from "jotai";
 import { buildingIDCounterAtom, buildingListAtom } from "../GameState/BuildingState";
 import { BuildingInterface } from "../Interface/BuildingInterface";
 import { BuildingSection } from "./BuildingSection";
+import { totalProfitAtom } from "../GameState/EconomyState";
 
 /**
  * Building.tsx
@@ -19,6 +20,7 @@ export function Building(){
     const [buildingList, setBuildingList] = useAtom(buildingListAtom);
     const [buildingIDCounter, setBuildingIDCounter] = useAtom(buildingIDCounterAtom);
     const [floor, setFloor] = useState<number>(700);
+    const [totalProfit, setTotalProfit] = useAtom(totalProfitAtom);
     
     const startShape = {x: 1400, y: 700 };
     const maxLimits = {x: 400, y: -10000 };
@@ -38,7 +40,7 @@ export function Building(){
     };
     
     function makeBuilding() {
-        if(buildingIDCounter === 4){
+        if(buildingIDCounter === 6){
             console.log("end")
         }
         else{
@@ -57,7 +59,7 @@ export function Building(){
                     setFloor(buildingShape.y);
                 }
             }
-        
+            setTotalProfit(() => totalProfit - 500);
             addBuildingData({
                 id: buildingIDCounter,
                 bottomRoomID: -10,
@@ -77,6 +79,8 @@ export function Building(){
                         id={b.id}
                         bX={b.x}
                         bY={b.y}
+                        bRoomId={b.bottomRoomID}
+                        tRoomId={b.topRoomID}
                     />
                 );
             })}
