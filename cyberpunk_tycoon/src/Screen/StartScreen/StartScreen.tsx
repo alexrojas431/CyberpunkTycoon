@@ -1,6 +1,6 @@
 import { useAtom } from "jotai"
 import { gameStateAtom } from "../../GameState/StartState";
-import logo from "../../Assets/templogo.png"
+import logo from "../../Assets/cyberpunkTycoonlogo.png"
 import "./StartScreen.css";
 
 export function StartScreen(){
