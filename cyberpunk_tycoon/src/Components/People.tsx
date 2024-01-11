@@ -1,5 +1,7 @@
-import { Sprite } from "@pixi/react";
-import { useState } from "react";
+import { Sprite, useTick } from "@pixi/react";
+import { Graphics } from "@pixi/react";
+import { useState, useEffect, useCallback } from "react";
+import * as PIXI from "pixi.js";
 //import { useAtom } from "jotai";
 //import { roomsListAtom } from "../GameState/RoomState";
 import punk from '../Assets/punk.png'
@@ -67,12 +69,28 @@ interface Props{
     readonly pY: number;
     readonly pW: number;
     readonly pH: number;
+    readonly roomX: number;
+    readonly roomW: number;
+}
+
+function getRandomInt(max:number) {
+    return Math.floor(Math.random() * max);
 }
 
 export function People(p:Props){
 
-    const [x, setX] = useState(p.pX)
-    const [y, setY] = useState(p.pY)
+    const [x, setX] = useState(p.pX);
+    const [y, setY] = useState(p.pY);
+    const [moveLeft, setMoveLeft] = useState(false);
+    const [moveRight, setMoveRight] = useState(false);
+    const second = 1000;
+
+    /*const bButton = useCallback((g: PIXI.Graphics) => {
+        g.clear();
+        g.beginFill(0x1273DE);
+        g.drawRoundedRect(x, y, 150, 90, 20);
+        g.endFill();
+    },[])*/
 /*
     const [roomsList, setRoomsList] = useAtom(roomsListAtom);
     const moveRight = (x: number) => x+10;
@@ -141,14 +159,73 @@ export function People(p:Props){
         });
     });*/
 
+    useEffect(() => {
+        //setMoveRight(true);
+        const moveIntervalRandom = setInterval(() => {
+            setMoveLeft(true);
+        }, getRandomInt(8)*second);
+
+        return () => {
+            clearInterval(moveIntervalRandom);
+        }
+    }, [moveRight]);
+
+    useEffect(() => {
+        const moveIntervalRandom = setInterval(() => {
+            setMoveRight(true);
+        }, getRandomInt(8)*second);
+
+        return () => {
+            clearInterval(moveIntervalRandom);
+        }
+    }, [moveLeft]);
+
+    useEffect(() => {
+        const moveIntervalRandom = setInterval(() => {
+            setMoveRight(false);
+            setMoveLeft(false);
+        }, getRandomInt(5)*second);
+
+        return () => {
+            clearInterval(moveIntervalRandom);
+        }
+    }, [moveLeft, moveRight]);
+
+    useTick(() => {
+        let sX = x+1;
+
+        if(p.roomX > sX || (p.roomX + p.roomW-(p.pW*2)) < sX) {
+            sX = x;
+        }
+        setX(sX);
+    }, moveLeft && !moveRight);
+
+    useTick(() => {
+        let sX = x-1;
+
+        if(p.roomX > sX || (p.roomX + p.roomW-(p.pW*2)) < sX) {
+            sX = x;
+        }
+        setX(sX);
+    }, !moveLeft && moveRight);
+
     return (
-        <Sprite
-            image={punk}
-            x={x}
-            y={y}
-            scale={2}
-            width={p.pW}
-            height={p.pH}
-        />
+        <>
+            <Sprite
+                image={punk}
+                x={x}
+                y={y}
+                scale={2}
+                width={p.pW}
+                height={p.pH}
+            />
+            {/*<Graphics
+                    draw={bButton}
+                    eventMode="static" //Makes it interactable
+                    cursor="pointer" // Adds a hand on windows machine only
+                    onclick={() => setMoveLeft(true)}
+                    hitArea={new PIXI.Rectangle(x, y, 100, 100)}
+            />*/}
+        </>
     );
 };

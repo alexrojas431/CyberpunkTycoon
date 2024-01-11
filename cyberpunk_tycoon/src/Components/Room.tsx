@@ -1,5 +1,5 @@
 import { Container, Sprite } from "@pixi/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAtom } from "jotai";
 import { RoomInterface } from "../Interface/RoomInterface";
 import { totalProfitAtom } from "../GameState/EconomyState";
@@ -25,6 +25,7 @@ export function Room(p: Props){
     const employeeSpriteWidth = 85;
     const employeeSpriteXCoor = p.rX+employeeSpriteWidth/2;
     const employeeSpriteYCoor = p.rY+p.rH-employeeSpriteHeight;
+    const [sprites, setSprites] = useState<any[]>([]);
 
     useEffect(() => {
         const roomProfitInterval = setInterval(() => {
@@ -57,7 +58,7 @@ export function Room(p: Props){
         console.log("Room ID from Room Component: " + p.roomObject.id)
     }
 
-    const renderSprites = () => {
+    useEffect(() => {
         let sprites: any[] = [];
         for(let positionI = 0; positionI < p.roomObject.numOfEmployees; positionI++) {
             sprites = [
@@ -68,11 +69,14 @@ export function Room(p: Props){
                     pY={employeeSpriteYCoor - 30} 
                     pW={employeeSpriteWidth} 
                     pH={employeeSpriteHeight}
+                    roomX={p.rX}
+                    roomW={p.rW}
                 />
             ]
         }
-        return sprites;
-    }
+        //return sprites;
+        setSprites(sprites)
+    }, [p.roomObject.numOfEmployees]);
 
     // Use Room List Atom and set global X and Y using graphic1 here
 
@@ -89,7 +93,7 @@ export function Room(p: Props){
                 width={p.rW}
                 height={p.rH}
             />
-            { renderSprites() }
+            { sprites }
         </Container>
     )
 }
