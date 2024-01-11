@@ -82,6 +82,7 @@ export function People(p:Props){
     const [x, setX] = useState(p.pX);
     const [y, setY] = useState(p.pY);
     const [moveLeft, setMoveLeft] = useState(false);
+    const [moveRight, setMoveRight] = useState(false);
     const second = 1000;
 
     /*const bButton = useCallback((g: PIXI.Graphics) => {
@@ -159,24 +160,36 @@ export function People(p:Props){
     });*/
 
     useEffect(() => {
-        setMoveLeft(true);
-        const moveIntervalRandom = setInterval(() => {
-            setMoveLeft(false);
-        }, getRandomInt(6)*second);
-
-        return () => {
-            clearInterval(moveIntervalRandom);
-        }
-    }, []);
-    useEffect(() => {
+        //setMoveRight(true);
         const moveIntervalRandom = setInterval(() => {
             setMoveLeft(true);
-        }, getRandomInt(6)*second);
+        }, getRandomInt(8)*second);
 
         return () => {
             clearInterval(moveIntervalRandom);
         }
-    }, []);
+    }, [moveRight]);
+
+    useEffect(() => {
+        const moveIntervalRandom = setInterval(() => {
+            setMoveRight(true);
+        }, getRandomInt(8)*second);
+
+        return () => {
+            clearInterval(moveIntervalRandom);
+        }
+    }, [moveLeft]);
+
+    useEffect(() => {
+        const moveIntervalRandom = setInterval(() => {
+            setMoveRight(false);
+            setMoveLeft(false);
+        }, getRandomInt(5)*second);
+
+        return () => {
+            clearInterval(moveIntervalRandom);
+        }
+    }, [moveLeft, moveRight]);
 
     useTick(() => {
         let sX = x+1;
@@ -184,8 +197,8 @@ export function People(p:Props){
         if(p.roomX > sX || (p.roomX + p.roomW-(p.pW*2)) < sX) {
             sX = x;
         }
-        setX(sX)
-    }, moveLeft);
+        setX(sX);
+    }, moveLeft && !moveRight);
 
     useTick(() => {
         let sX = x-1;
@@ -193,8 +206,8 @@ export function People(p:Props){
         if(p.roomX > sX || (p.roomX + p.roomW-(p.pW*2)) < sX) {
             sX = x;
         }
-        setX(sX)
-    }, !moveLeft);
+        setX(sX);
+    }, !moveLeft && moveRight);
 
     return (
         <>
