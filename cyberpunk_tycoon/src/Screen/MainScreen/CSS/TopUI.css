@@ -34,8 +34,8 @@
     cursor: pointer;
     position: relative;
     z-index: 0;
-    user-select: none;
     -webkit-user-select: none;
+    user-select: none;
     touch-action: manipulation;
     background-image: radial-gradient(93% 87% at 87% 89%, rgba(0, 0, 0, 0.23) 0%, transparent 86.18%), radial-gradient(66% 87% at 26% 20%, rgba(255, 255, 255, 0.41) 0%, rgba(255, 255, 255, 0) 69.79%, rgba(255, 255, 255, 0) 100%);
     box-shadow: 2px 19px 31px rgba(0, 0, 0, 0.2);
@@ -53,8 +53,8 @@
     position: relative;
     z-index: 0;
     border-radius: 10px;
-    user-select: none;
     -webkit-user-select: none;
+    user-select: none;
     touch-action: manipulation;
   }
   
@@ -71,8 +71,8 @@
     left: -2px;
     background-size: 400%;
     z-index: -1;
-    filter: blur(5px);
     -webkit-filter: blur(5px);
+    filter: blur(5px);
     width: calc(100% + 4px);
     height: calc(100% + 4px);
     animation: glowing-button-85 20s linear infinite;

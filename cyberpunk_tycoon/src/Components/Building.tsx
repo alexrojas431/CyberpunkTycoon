@@ -26,10 +26,15 @@ export function Building(){
     const maxLimits = {x: 400, y: -10000 };
     let buildingShape = startShape;
 
+    const bButtonX = 0;
+    const bButtonY = 1200;
+    const bButtonW = 150;
+    const bButtonH = 90;
+
     const bButton = useCallback((g: PIXI.Graphics) => {
         g.clear();
         g.beginFill(0x1273DE);
-        g.drawRoundedRect(0, 1200, 150, 90, 20);
+        g.drawRoundedRect(bButtonX, bButtonY, bButtonW, bButtonH, 20);
         g.endFill();
     },[])
 
@@ -89,7 +94,7 @@ export function Building(){
                 eventMode="static" //Makes it interactable
                 cursor="pointer" // Adds a hand on windows machine only
                 onclick={makeBuilding}
-                hitArea={new PIXI.Rectangle(0, 1200, 100, 100)}
+                hitArea={new PIXI.Rectangle(bButtonX, bButtonY, bButtonW, bButtonH)}
             />
             <Text text={"Create\nBuilding"}
                 x={0}

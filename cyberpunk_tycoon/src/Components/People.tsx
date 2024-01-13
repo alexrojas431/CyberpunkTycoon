@@ -1,9 +1,7 @@
 import { Sprite, useTick } from "@pixi/react";
 import { Graphics } from "@pixi/react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import * as PIXI from "pixi.js";
-//import { useAtom } from "jotai";
-//import { roomsListAtom } from "../GameState/RoomState";
 import punk from '../Assets/punk.png'
 
 /**
@@ -90,15 +88,14 @@ export function People(p:Props){
         g.beginFill(0x1273DE);
         g.drawRoundedRect(x, y, 150, 90, 20);
         g.endFill();
-    },[])*/
-/*
+    },[])
     const [roomsList, setRoomsList] = useAtom(roomsListAtom);
     const moveRight = (x: number) => x+10;
     const moveLeft = (x: number) => x-10;
     const moveUp = (y: number) => y-10;
     const moveDown = (y: number) => y+10;
-*/  
-    /*const moveToRoom = (sx: number, sy: number, x: number, y: number) =>{
+    
+    const moveToRoom = (sx: number, sy: number, x: number, y: number) =>{
         // Calculate direction towards player
         let toX = x - sx;
         let toY = y - sy;
@@ -114,9 +111,9 @@ export function People(p:Props){
         //setX(sx-=toX);
         if(sx>x){setX(sx-=toX);}
         setY(sy+=toY);
-    };*/
+    };
 
-    /*useTick(delta =>{
+    useTick(delta =>{
         keyboard("ArrowLeft").press = () => {
             setX(moveLeft(x));
         };
