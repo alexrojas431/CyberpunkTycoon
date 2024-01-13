@@ -1,11 +1,10 @@
-import { Container, Graphics, PixiComponent, PixiFiber, Sprite, Text } from "@pixi/react";
+import { Container, Graphics, Sprite, Text } from "@pixi/react";
 import { useCallback, useState } from "react";
 import * as PIXI from "pixi.js";
 import { Graphics as pixiGraphics } from "pixi.js";
 import { useAtom } from "jotai";
 import { Room } from "./Room";
 import { roomIDCounterAtom, roomsListAtom as roomListAtom, roomSelectors } from "../GameState/RoomState";
-import { RoomInterface as roomInterface } from '../Interface/RoomInterface';
 import { buildingListAtom } from "../GameState/BuildingState";
 import building from "../Assets/building.png"
 import { totalProfitAtom } from "../GameState/EconomyState";
@@ -61,12 +60,15 @@ export function BuildingSection(p: Props){
         setRoomList((prevList: any) => [...prevList, newRoom]);
     };
 
+    const rButtonW = 120;
+    const rButtonH = 90;
+
     const rButton = useCallback((g:pixiGraphics) => {
         g.clear();
         g.beginFill(0x8c3b0c);
-        g.drawRoundedRect(p.bX, p.bY, 120, 90, 20);
+        g.drawRoundedRect(p.bX, p.bY, rButtonW, rButtonH, 20);
         g.endFill();
-    },[])
+    },[p.bX, p.bY])
 
     const updateBuildingRoomID = (buildingID: number, roomID: number) => {
         let newBuildingList = buildingList.map(b =>{
@@ -180,7 +182,7 @@ export function BuildingSection(p: Props){
                 eventMode="static"
                 cursor="pointer"
                 onclick={makeRoomInBuilding}
-                hitArea={new PIXI.Rectangle(p.bX, p.bY, 100, 100)}
+                hitArea={new PIXI.Rectangle(p.bX, p.bY, rButtonW, rButtonH)}
             />
         </Container>
     )
